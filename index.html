@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BTZProduction — Personal List</title>
+<style>
+  
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f0f13; --panel: #14141a;
+    --line: #1f1f28; --line-2: #2a2a35;
+    --text: #e8e8e8; --text-dim: #9a9aa5; --text-mute: #4a4a55;
+    --pink: #ffd1dc; --lilac: #d8c2ff; --mint: #c2ffd8;
+    --radius: 14px;
+  }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.55;
+    min-height: 100vh; padding: 40px 20px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -20vmax;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(38vmax 38vmax at 20% 25%, rgba(255, 209, 220, 0.18), transparent 60%),
+      radial-gradient(42vmax 42vmax at 80% 20%, rgba(216, 194, 255, 0.16), transparent 62%),
+      radial-gradient(46vmax 46vmax at 65% 80%, rgba(194, 255, 216, 0.13), transparent 62%),
+      radial-gradient(36vmax 36vmax at 15% 85%, rgba(255, 216, 194, 0.12), transparent 60%);
+    filter: blur(30px);
+    animation: bgDrift 28s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(120% 100% at 50% 0%, transparent 40%, rgba(15, 15, 19, 0.55) 100%);
+  }
+
+  @keyframes bgDrift {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    }
+    50% {
+      transform: translate3d(3vmax, -2vmax, 0) scale(1.06) rotate(1.5deg);
+    }
+    100% {
+      transform: translate3d(-2.5vmax, 2.5vmax, 0) scale(1.03) rotate(-1deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before { animation: none; }
+  }
+
+  .container { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+
+  
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .header-left {
+    text-align: left;
+    flex: 1;
+    min-width: 200px;
+  }
+  .support-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color:  #0f0f13;
+    background: linear-gradient(135deg, var(--pink), var(--lilac));
+    transition: transform .15s ease, box-shadow .15s ease;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px  rgba(255,184,216,0.2);
+  }
+  .support-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px  rgba(216,194,255,0.4);
+  }
+  .support-btn:active {
+    transform: translateY(0);
+  }
+  .support-btn:focus-visible {
+    outline: 2px solid var(--pink);
+    outline-offset: 2px;
+  }
+  @media (max-width: 640px) {
+    header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    .header-left {
+      text-align: center;
+    }
+    .support-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  header h1 {
+    font-size: clamp(1.9rem, 6vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--pink), var(--lilac), var(--mint));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  header .subtitle {
+    color: #7a7a85; font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  header .date { font-size: 0.7rem; color: var(--text-mute); letter-spacing: 0.15em; margin-top: 6px; }
+
+  
+  .tab-header {
+    display: flex; gap: 2px;
+    background: linear-gradient(135deg, rgba(255,209,220,0.3), rgba(216,194,255,0.3), rgba(194,255,216,0.3));
+    border: 1px solid rgba(216,194,255,0.4); border-radius: 16px;
+    padding: 8px 12px; margin-bottom: 32px;
+  }
+  .tab-btn {
+    flex: 1; padding: 14px 24px; border: none; border-radius: 12px;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #7a7a85; background: rgba(15,15,19,0.5); cursor: pointer; font-family: inherit;
+    transition: color .2s ease, background .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .tab-btn:hover {
+    color: var(--text); background: rgba(15,15,19,0.7); transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255,184,216,0.2);
+  }
+  .tab-btn.active,
+  .tab-btn.active:hover {
+    color: #0f0f13; background: linear-gradient(135deg, var(--pink), var(--lilac));
+    box-shadow: 0 4px 18px rgba(216,194,255,0.45); transform: none;
+    font-weight: 700;
+  }
+  .tab-btn:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+
+  
+  .tab-panel { display: none; animation: fadeIn .3s ease; }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  
+  .about-block {
+    background: linear-gradient(135deg, rgba(255,209,220,0.08), rgba(216,194,255,0.08), rgba(194,255,216,0.08));
+    border: 1px solid rgba(216,194,255,0.18); border-radius: var(--radius);
+    padding: 24px; margin-bottom: 24px;
+  }
+  .about-title {
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-mute); margin-bottom: 14px; padding-left: 4px; font-weight: 600;
+  }
+  .about-lead { font-size: 0.95rem; color: #d8d8e0; font-weight: 500; margin-bottom: 12px; line-height: 1.6; }
+  .about-block p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 10px; }
+  .about-goal {
+    color: #c2c2cc !important; font-weight: 500;
+    margin-top: 14px !important; padding-top: 12px; border-top: 1px solid var(--line);
+  }
+  .about-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .about-links a {
+    display: inline-block; padding: 8px 16px; border-radius: 8px; font-size: 0.8rem;
+    font-weight: 500; text-decoration: none; color: var(--text);
+    background: rgba(15,15,19,0.6); border: 1px solid var(--line-2);
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .about-links a:hover { transform: translateY(-2px); background: rgba(15,15,19,0.9); border-color: #4a4a55; }
+  .about-cta-row { margin-top: 20px; display: flex; justify-content: flex-start; }
+  .about-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 12px; border: none; cursor: pointer;
+    font-family: inherit; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02em;
+    color: #0f0f13;
+    background: linear-gradient(135deg, var(--mint), var(--lilac));
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .about-cta::after { content: "→"; font-size: 0.95rem; }
+  .about-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(194,255,216,0.3); }
+  .about-cta:active { transform: translateY(0); }
+  .about-cta:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+
+  
+  .directors-block {
+    background: linear-gradient(135deg, rgba(216,194,255,0.10), rgba(194,255,216,0.10));
+    border: 1px solid rgba(216,194,255,0.18); border-radius: var(--radius);
+    padding: 24px; margin-bottom: 24px;
+  }
+  .level-title {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-mute); margin-bottom: 12px; padding-left: 4px; font-weight: 600;
+  }
+  .directors-grid { display: grid; gap: 12px; }
+  .directors-grid-all { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .director-card {
+    display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-radius: 12px;
+    background: rgba(15,15,19,0.6); border: 1px solid rgba(216,194,255,0.2);
+    transition: transform .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .director-card:hover {
+    transform: translateY(-2px); background: rgba(15,15,19,0.8);
+    border-color: rgba(255,209,220,0.4);
+  }
+  .director-card .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .director-card .role-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .director-card .role-name { font-size: 0.9rem; font-weight: 600; }
+  .director-card .role-nick { font-size: 0.7rem; color: #8a8a95; letter-spacing: 0.02em; word-break: break-word; }
+  .director-card.is-empty {
+    border-style: dashed;
+    border-color: rgba(216,194,255,0.14);
+    background: rgba(15,15,19,0.35);
+  }
+  .director-card.is-empty:hover {
+    transform: none;
+    background: rgba(15,15,19,0.5);
+    border-color: rgba(216,194,255,0.22);
+  }
+  .director-card.is-empty .role-name { color: var(--text-mute); }
+  .director-card.is-empty .role-nick { color: #55505f; font-style: italic; }
+
+  
+  .teams-grid { display: grid; gap: 24px; }
+  .team-block {
+    background: rgba(15,15,19,0.5); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius); padding: 24px;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .team-block:hover { background: rgba(15,15,19,0.7); border-color: rgba(255,184,216,0.3); }
+  .team-title {
+    font-size: 1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .team-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 12px; }
+  .team-desc em { color: #c2c2cc; font-style: normal; }
+  .team-criteria {
+    list-style: none; margin: 0 0 18px; padding: 14px 16px;
+    background: rgba(15,15,19,0.55); border: 1px solid var(--line); border-radius: 10px;
+  }
+  .team-criteria li {
+    position: relative; padding: 7px 0 7px 22px;
+    border-bottom: 1px dashed rgba(255,255,255,0.05);
+  }
+  .team-criteria li:last-child { border-bottom: none; padding-bottom: 0; }
+  .team-criteria li:first-child { padding-top: 0; }
+  .team-criteria li::before {
+    content: "✓"; position: absolute; left: 2px; top: 7px;
+    color: var(--mint); font-weight: 700; font-size: 0.82rem;
+  }
+  .team-criteria li:first-child::before { top: 0; }
+  .crit-title { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+  .crit-text { display: block; font-size: 0.76rem; color: var(--text-dim); line-height: 1.55; margin-top: 2px; }
+  .rank-group { margin-bottom: 16px; }
+  .rank-group:last-child { margin-bottom: 0; }
+  .rank-title {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-mute); margin-bottom: 8px; padding-left: 4px; font-weight: 600;
+  }
+  .rank-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 18px; height: 18px; padding: 0 6px;
+    border-radius: 6px; font-size: 0.72rem; font-weight: 700; line-height: 1;
+    color: #0f0f13;
+  }
+  .rank-badge .rank-icon { font-size: 0.78rem; margin-right: 3px; }
+  
+  .rank-badge[data-rank="trainee"] { background: #a8c8ff; box-shadow: 0 0 0 1px rgba(168,200,255,0.35); }
+  .rank-badge[data-rank="junior"]  { background: #c2ffd8; box-shadow: 0 0 0 1px rgba(194,255,216,0.35); }
+  .rank-badge[data-rank="middle"]  { background: #ffd8c2; box-shadow: 0 0 0 1px rgba(255,216,194,0.4); }
+  .rank-badge[data-rank="senior"]  { background: linear-gradient(135deg, #ffd1dc, #d8c2ff); box-shadow: 0 0 12px rgba(216,194,255,0.45); }
+  .rank-group[data-rank="trainee"] .member-tag { background: rgba(168,200,255,0.10); }
+  .rank-group[data-rank="junior"]  .member-tag { background: rgba(194,255,216,0.10); }
+  .rank-group[data-rank="middle"]  .member-tag { background: rgba(255,216,194,0.10); }
+  .rank-group[data-rank="senior"]  .member-tag {
+    background: rgba(216,194,255,0.14);
+    border-left-width: 4px;
+  }
+  .member-list { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+  .member-tag {
+    display: inline-block; font-size: 0.85rem; font-weight: 500; padding: 5px 12px;
+    border-radius: 8px; background: rgba(15,15,19,0.6); border-left: 3px solid #7a7a85;
+    word-break: break-word;
+  }
+  .empty-state { list-style: none; color: #5a5a65; font-style: italic; font-size: 0.8rem; padding: 4px 0; }
+
+  
+  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-left: 6px; flex-shrink: 0; }
+  .status-online { background: #43b581; }
+  .status-idle { background: #faa61a; }
+  .status-dnd { background: #f04747; }
+  .status-offline { background: #747f8d; }
+
+  
+  .rules-block { padding: 24px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
+  .rules-block h2 {
+    font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #c2c2cc; margin-bottom: 12px; text-align: center;
+  }
+  .rules-version { text-align: center; font-size: 0.7rem; color: var(--text-mute); letter-spacing: 0.15em; margin-bottom: 20px; }
+  .rules-block h3 {
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8a95;
+    margin-top: 20px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--line);
+  }
+  .rules-block h4 { font-size: 0.75rem; font-weight: 600; color: #b8b8c2; margin-top: 12px; margin-bottom: 4px; }
+  .rules-block p { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 8px; line-height: 1.5; }
+  .rules-block ul { list-style: none; margin-bottom: 4px; }
+  .rules-block ul li { font-size: 0.73rem; color: var(--text-dim); padding: 3px 0 3px 16px; position: relative; line-height: 1.5; }
+  .rules-block ul li::before { content: "·"; position: absolute; left: 4px; color: var(--text-mute); font-weight: 700; }
+  .rules-footer {
+    margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line);
+    text-align: center; font-size: 0.7rem; color: #7a7a85; font-style: italic;
+  }
+
+  
+  .join-block {
+    background: linear-gradient(135deg, rgba(194,255,216,0.08), rgba(216,194,255,0.08));
+    border: 1px solid rgba(194,255,216,0.2); border-radius: var(--radius);
+    padding: 24px; margin-bottom: 24px;
+  }
+  .join-title {
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-mute); margin-bottom: 14px; padding-left: 4px; font-weight: 600;
+  }
+  .join-block p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 10px; }
+  .join-steps { list-style: none; counter-reset: step; margin: 16px 0; }
+  .join-steps li {
+    position: relative; counter-increment: step; padding: 10px 0 10px 44px;
+    font-size: 0.85rem; color: var(--text); line-height: 1.55; border-bottom: 1px solid var(--line);
+  }
+  .join-steps li:last-child { border-bottom: none; }
+  .join-steps li::before {
+    content: counter(step); position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700; color: #0f0f13;
+    background: linear-gradient(135deg, var(--pink), var(--lilac));
+  }
+  .join-steps li strong { color: var(--text); }
+  .join-tg { color: var(--mint); text-decoration: none; font-weight: 600; border-bottom: 1px dashed rgba(194,255,216,0.4); }
+  .join-tg:hover { color: #e8fff2; border-bottom-color: var(--mint); }
+  .join-cta {
+    display: inline-block; margin-top: 8px; padding: 12px 22px; border-radius: 12px;
+    font-size: 0.85rem; font-weight: 700; text-decoration: none; color: #0f0f13;
+    background: linear-gradient(135deg, var(--pink), var(--lilac));
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .join-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(216,194,255,0.3); }
+
+  
+  footer { margin-top: 40px; text-align: center; font-size: 0.7rem; color: var(--text-mute); letter-spacing: 0.15em; text-transform: uppercase; }
+  .load-error {
+    color: #ff9aa2; background: #2a161a; border: 1px solid #5a2a32;
+    border-radius: 12px; padding: 16px 20px; font-size: 0.85rem; margin-bottom: 16px;
+  }
+
+  
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(15, 15, 19, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+  }
+  .modal-overlay.active {
+    opacity: 1; pointer-events: auto;
+  }
+  .modal-box {
+    background: var(--panel);
+    border: 1px solid rgba(216, 194, 255, 0.25);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    width: 100%; max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    transform: translateY(10px); transition: transform 0.2s ease;
+  }
+  .modal-overlay.active .modal-box {
+    transform: translateY(0);
+  }
+  .modal-title {
+    font-size: 1.2rem; font-weight: 700; color: var(--text);
+    margin-bottom: 8px;
+  }
+  .modal-desc {
+    font-size: 0.85rem; color: var(--text-dim); margin-bottom: 24px;
+  }
+  .donation-input {
+    width: 100%; padding: 14px 16px;
+    background: rgba(15,15,19,0.6); border: 1px solid var(--line-2);
+    border-radius: 10px; color: var(--text); font-size: 1.1rem;
+    font-family: inherit; text-align: center;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+  }
+  .donation-input:focus {
+    border-color: var(--lilac);
+    box-shadow: 0 0 0 3px rgba(216, 194, 255, 0.15);
+  }
+  .donation-input::placeholder { color: var(--text-mute); }
+  .donation-error {
+    color: #ff9aa2; font-size: 0.8rem; margin-top: 8px;
+    min-height: 1.2em;
+  }
+  .donation-submit {
+    width: 100%; margin-top: 20px; padding: 14px 24px;
+    border: none; border-radius: 12px;
+    font-size: 0.95rem; font-weight: 700; letter-spacing: 0.02em;
+    color: #0f0f13;
+    background: linear-gradient(135deg, var(--pink), var(--lilac));
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  }
+  .donation-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(216,194,255,0.3); }
+  .donation-submit:active { transform: translateY(0); }
+  .donation-submit:disabled {
+    opacity: 0.6; cursor: not-allowed; transform: none;
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: none; border: none; color: var(--text-mute);
+    font-size: 1.5rem; cursor: pointer; line-height: 1;
+    transition: color 0.15s ease;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-box { position: relative; }
+
+  
+  .pop-effect {
+    position: fixed;
+    pointer-events: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,209,220,0.8) 0%, rgba(216,194,255,0.4) 50%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    animation: popAnim 0.6s ease-out forwards;
+    z-index: 9999;
+  }
+
+  .pop-effect::before,
+  .pop-effect::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 209, 220, 0.6);
+    transform: translate(-50%, -50%);
+    animation: popRing 0.6s ease-out forwards;
+  }
+
+  .pop-effect::after {
+    border-color: rgba(216, 194, 255, 0.6);
+    animation-delay: 0.1s;
+  }
+
+  @keyframes popAnim {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+  }
+
+  @keyframes popRing {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; border-width: 3px; }
+    100% { transform: translate(-50%, -50%) scale(3); opacity: 0; border-width: 0px; }
+  }
+
+  
+  @media (max-width: 900px) {
+    .directors-grid-all { grid-template-columns: repeat(2, 1fr); }
+    .teams-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    body { padding: 24px 14px; }
+    .tab-header { padding: 6px 8px; gap: 0; }
+    .tab-btn { padding: 10px 12px; font-size: 0.72rem; }
+    .about-block, .directors-block, .rules-block, .team-block { padding: 18px; }
+    .director-card { padding: 12px 14px; }
+    .director-card .role-name { font-size: 0.8rem; }
+    .team-title { font-size: 0.9rem; }
+    .directors-grid-all { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-left">
+        <h1>BTZProduction</h1>
+        <div class="subtitle">Personal List</div>
+        <div class="date" id="date-el"></div>
+      </div>
+      <a href="#" class="support-btn">💖 Поддержать проект</a>
+    </header>
+
+    <nav class="tab-header" id="tab-header">
+      <button class="tab-btn active" type="button" data-tab="about">О проекте</button>
+      <button class="tab-btn" type="button" data-tab="members">Состав</button>
+      <button class="tab-btn" type="button" data-tab="rules">Правила</button>
+      <button class="tab-btn" type="button" data-tab="join">Как вступить</button>
+    </nav>
+
+    <main id="tab-content">
+      <section class="tab-panel active" id="tab-about">
+        <div class="about-block">
+          <div class="about-title">О проекте</div>
+          <p class="about-lead">BTZProduction — закрытая команда по созданию контента: моменты с игр, TikTok, Reels, Shorts, арты, фанфики и коллабы.</p>
+          <p>Мы выросли из обычного хауса в продакшн-команду. То, что раньше было просто тусовкой друзей в Minecraft, теперь стало проектом с ролями, дисциплиной и общим брендом.</p>
+          <p>Основная тема — Minecraft, но этим мы не ограничиваемся. У нас есть CS2, Roblox, челленджи, коллабы.</p>
+          <p>Снимаемся онлайн: кто-то в кадре, кто-то за кадром, кто-то монтирует, кто-то придумывает.</p>
+          <p class="about-goal">Мы не обещаем миллионы. Мы обещаем движение вперёд, поддержку и контент, который хочется смотреть.</p>
+          <div class="about-links">
+            <a href="https://discord.gg/ufQghhdRVJ" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="https://www.tiktok.com/@btzhora" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href="https://t.me/BTZhoraTG" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <a href="https://www.youtube.com/@btzhora" target="_blank" rel="noopener noreferrer">YouTube</a>
+          </div>
+          <div class="about-cta-row">
+            <button type="button" class="about-cta" data-goto-tab="join">Как вступить?</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-members">
+        <div class="directors-block">
+          <div class="level-title">Директора</div>
+          <div id="directors-grid" class="directors-grid directors-grid-all"></div>
+        </div>
+        <div class="teams-grid" id="teams-grid"></div>
+      </section>
+
+      <section class="tab-panel" id="tab-rules">
+        <div class="rules-block">
+          <h2>Правила BTZProduction</h2>
+          <div class="rules-version">Версия от 07.11.2026</div>
+
+          <h3>Введение</h3>
+          <p>BTZProduction — это закрытая продакшн-команда, которая создаёт контент: видео, ролики, стримы, коллабы.</p>
+
+          <h3>Часть I: Общие принципы</h3>
+          <h4>1. Уважение и атмосфера</h4>
+          <ul>
+            <li>1.1. Уважай всех участников команды: в чате, в голосе, на съёмках.</li>
+            <li>1.2. Запрещены оскорбления, унижения, травля, угрозы и дискриминация.</li>
+            <li>1.3. Конфликты решаются внутри команды, а не публично.</li>
+            <li>1.4. Деструктивный троллинг и провокации недопустимы.</li>
+          </ul>
+          <h4>2. Конфиденциальность</h4>
+          <ul>
+            <li>2.1. Всё, что обсуждается внутри BTZProduction: идеи, сценарии, конфликты, планы, финансы — остаётся внутри.</li>
+            <li>2.2. Запрещено сливать скрины переписок, голосовых и личных данных.</li>
+            <li>2.3. Запрещено публиковать контент BTZProduction от своего имени без согласования.</li>
+          </ul>
+          <h4>3. Дисциплина и участие</h4>
+          <ul>
+            <li>3.1. Если ты взял задачу — доведи её до конца или предупреди заранее.</li>
+            <li>3.2. Пропуск съёмок, дедлайнов и созвонов без предупреждения — нарушение.</li>
+            <li>3.3. Если ты не можешь участвовать — сообщи своему директору.</li>
+          </ul>
+
+          <h3>Часть II: Контент и съёмки</h3>
+          <h4>4. Съёмки и работа на площадке</h4>
+          <ul>
+            <li>4.1. На съёмках действует распоряжение режиссёра и продакшн-директора.</li>
+            <li>4.2. Опоздания, срыв съёмок и помехи процессу — нарушение.</li>
+            <li>4.3. Запрещено снимать или публиковать материалы BTZProduction без согласования с продакшн-директором.</li>
+          </ul>
+          <h4>5. Права на контент</h4>
+          <ul>
+            <li>5.1. Весь контент, созданный в рамках BTZProduction, принадлежит BTZProduction.</li>
+            <li>5.2. Участник не может публиковать общий контент на своих площадках без согласования.</li>
+          </ul>
+          <h4>6. Публикации и бренд</h4>
+          <ul>
+            <li>6.1. Всё, что публикуется от имени BTZProduction, проходит согласование с креатив-директором и бренд-директором.</li>
+            <li>6.2. Запрещено публиковать контент, который может навредить репутации BTZProduction.</li>
+          </ul>
+
+          <h3>Часть III: Общение и технические правила</h3>
+          <h4>7. Чаты и голосовые каналы</h4>
+          <ul>
+            <li>7.1. Чат — рабочее пространство.</li>
+            <li>7.2. Запрещён флуд, спам, массовые упоминания без необходимости.</li>
+            <li>7.3. Реклама в ЛС участникам без согласия — мгновенный бан.</li>
+          </ul>
+          <h4>8. Игровой сервер (Minecraft)</h4>
+          <ul>
+            <li>8.1. Гриферство, воровство и порча чужих построек запрещены.</li>
+            <li>8.2. Читы, дюпы, эксплойты и моды с преимуществом запрещены.</li>
+            <li>8.3. PvP только по взаимному согласию.</li>
+            <li>8.4. Нецензурная лексика в игровом чате запрещена.</li>
+          </ul>
+          <h4>9. Внешние коллабы и гости</h4>
+          <ul>
+            <li>9.1. Гости допускаются на сервер и в чат только с разрешения продакшн-директора.</li>
+            <li>9.2. Внешние коллабы согласовываются с бренд-директором.</li>
+          </ul>
+
+          <h3>Часть IV: Нарушения и наказания</h3>
+          <h4>10. Система нарушений</h4>
+          <ul>
+            <li>10.1. Чаты (Discord и Telegram): Нарушение — Предупреждение — Мут — Бан.</li>
+            <li>10.2. Игровой сервер: Грубые нарушения — мгновенный бан.</li>
+            <li>10.3. Слив внутренней информации — исключение из команды без права возврата.</li>
+          </ul>
+          <h4>11. Администрация и руководство</h4>
+          <ul>
+            <li>11.1. Руководство BTZProduction: Основатель и директора направлений.</li>
+            <li>11.2. Решения руководства окончательны и не подлежат публичному оспариванию.</li>
+          </ul>
+
+          <h3>Часть V: Выход из команды</h3>
+          <h4>12. Уход</h4>
+          <ul>
+            <li>12.1. Участник может покинуть BTZProduction, предупредив руководство.</li>
+            <li>12.2. После ухода участник обязан вернуть доступы, если они были выданы.</li>
+          </ul>
+
+          <div class="rules-footer">BTZProduction — это команда. Здесь делают контент.</div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-join">
+        <div class="join-block">
+          <div class="join-title">Как вступить</div>
+          <p>BTZProduction — закрытая команда. Мы не набираем всех подряд: смотрим на мотивацию, навык и адекватность. Отбор проходит в несколько этапов.</p>
+          <ol class="join-steps">
+            <li><strong>Заявка в Telegram.</strong> Напишите в <a class="join-tg" href="https://t.me/BTZProduction" target="_blank" rel="noopener noreferrer">@BTZProduction</a> — это единственный канал для подачи заявок.</li>
+            <li><strong>Анкета.</strong> В ответ вам отправят базовую анкету для заполнения — расскажите о себе, опыте и желаемом направлении.</li>
+            <li><strong>Переход в Discord.</strong> После заполнения анкеты вас направят на наш Discord-сервер, где и будет проходить дальнейший отбор.</li>
+            <li><strong>Созвон с директором.</strong> В Discord состоится созвон с директором той команды, которую вы выбрали — Продакшн, Креатив, Арт, Лит, Бренд или Ня. Знакомство, обсуждение опыта и задач.</li>
+            <li><strong>Решение.</strong> По итогам созвона директор сообщает результат. При успехе — роли и доступы, при отказе — обратная связь и возможность попробовать позже.</li>
+          </ol>
+          <p>Не подошли с первого раза? Это не приговор — можно попробовать позже, прокачав навык. Мы ценим тех, кто возвращается подготовленным.</p>
+          <a class="join-cta" href="https://t.me/BTZProduction" target="_blank" rel="noopener noreferrer">Написать в Telegram @BTZProduction</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>BTZ — BTZProduction</footer>
+  </div>
+
+  
+  <div class="modal-overlay" id="donation-modal">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close-btn" aria-label="Закрыть">&times;</button>
+      <div class="modal-title">💖 Поддержать проект</div>
+      <div class="modal-desc">Минимальная сумма пожертвования — 50 ₽</div>
+      <input type="number" class="donation-input" id="donation-amount" placeholder="Введите сумму" min="50" step="10" />
+      <div class="donation-error" id="donation-error"></div>
+      <button class="donation-submit" id="donation-submit-btn">Отправить</button>
+    </div>
+  </div>
+
+<script>
+(function () {
+  'use strict';
+
+  var DATA_URL = 'data.json';
+  var REFRESH_MS = 30000;
+
+  var DIRECTOR_ORDER = ['owner', 'general', 'production', 'creative', 'brand', 'art', 'lit', 'nya'];
+  var DIRECTOR_COLORS = {
+    owner: '#ffd1dc', general: '#d8c2ff', production: '#ffd8c2', creative: '#d8c2ff',
+    brand: '#c2ffd8', art: '#ffd8cc', lit: '#d8d0e8', nya: '#ffb8d8'
+  };
+  var DIRECTOR_TITLES = {
+    owner: 'Основатель', general: 'Генеральный директор', production: 'Продакшн-директор',
+    creative: 'Креатив-директор', brand: 'Бренд-директор', art: 'Арт-директор',
+    lit: 'Лит-директор', nya: 'Ня-директор'
+  };
+
+  var TEAM_ORDER = ['production', 'creative', 'art', 'lit', 'brand', 'nya'];
+  var TEAM_NAMES = {
+    production: 'Продакшн-команда', creative: 'Креатив-команда', art: 'Арт-команда',
+    lit: 'Лит-команда', brand: 'Бренд-команда', nya: 'Ня-команда'
+  };
+  var TEAM_COLORS = {
+    production: '#ffd8c2', creative: '#fff5c2', art: '#ffc2cc',
+    lit: '#ffe8d8', brand: '#ffc2e8', nya: '#e8c8ff'
+  };
+  var RANK_ORDER = ['trainee', 'junior', 'middle', 'senior'];
+  var RANK_TITLES = { trainee: 'Trainee', junior: 'Junior', middle: 'Middle', senior: 'Senior' };
+  var RANK_ICONS = { trainee: '📘', junior: '🌱', middle: '⚡', senior: '🔥' };
+
+  var TEAM_INTROS = {
+    production: 'Те, кто отвечает за техническую реализацию видео.',
+    creative: 'Те, кто придумывает, ЧТО мы будем снимать.',
+    brand: 'Те, кто делает так, чтобы проект выглядел круто и приносил деньги.',
+    lit: 'Те, кто создает сюжеты, лор и тексты.',
+    art: 'Только цифровые работы.',
+    nya: 'Цифровой вайб и эстетика.'
+  };
+
+  var TEAM_CRITERIA = {
+    production: [
+      {
+        title: 'Съёмка и композиция',
+        text: 'Умение выставлять кадр в Minecraft, знание модов на камеру, понимание того, как движется оператор, чтобы картинка не была скучной.'
+      },
+      {
+        title: 'Монтаж',
+        text: 'Базовое владение программами (CapCut, Premiere Pro, DaVinci) — умение склеивать клипы, накладывать музыку и делать базовые эффекты.'
+      },
+      {
+        title: 'Звукорежиссура',
+        text: 'Умение работать со звуком: чистить голос от шумов, подбирать звуковые эффекты (SFX) и фоновую музыку под настроение сцены.'
+      },
+      {
+        title: 'Дисциплина на площадке',
+        text: 'Способность приходить на съёмки вовремя, выполнять указания и не тормозить процесс.'
+      }
+    ],
+    creative: [
+      {
+        title: 'Генерация идей',
+        text: 'Умение придумывать нестандартные концепции, а не просто копировать чужие тренды.'
+      },
+      {
+        title: 'Понимание трендов',
+        text: 'Навык анализировать TikTok и YouTube Shorts, понимать, какой формат зайдет аудитории прямо сейчас.'
+      },
+      {
+        title: 'Написание сценариев',
+        text: 'Умение превращать идею в четкую структуру: завязка, развитие, кульминация и финал (хук в первые 3 секунды).'
+      },
+      {
+        title: 'Адаптация форматов',
+        text: 'Способность переделать длинное видео в короткий ролик или придумать челлендж на основе обычной игры.'
+      }
+    ],
+    brand: [
+      {
+        title: 'SMM и копирайтинг',
+        text: 'Умение писать цепляющие описания к видео, ставить хештеги и общаться с аудиторией в комментариях.'
+      },
+      {
+        title: 'Базовый дизайн',
+        text: 'Владение Photoshop, Figma или Canva для создания красивых превью (обложек), баннеров и аватарок.'
+      },
+      {
+        title: 'Аналитика',
+        text: 'Понимание базовых метрик (охваты, удержание, CTR) и умение делать выводы, почему видео залетело или провалилось.'
+      },
+      {
+        title: 'Поиск партнеров',
+        text: 'Навык вести переговоры, искать спонсоров или медиа-партнеров и презентовать им проект.'
+      }
+    ],
+    lit: [
+      {
+        title: 'Грамотность',
+        text: 'Знание русского языка (орфография, пунктуация, стилистика), чтобы тексты не стыдно было публиковать.'
+      },
+      {
+        title: 'Стилистика и ритм',
+        text: 'Умение писать так, чтобы читатель не засыпал на втором предложении, а сам текст звучал в голове красиво.'
+      },
+      {
+        title: 'Логика сюжета',
+        text: 'Понимание того, как строятся истории (конфликт, развитие персонажа, финал), чтобы в сюжете не было дыр.'
+      },
+      {
+        title: 'Умение работать в соавторстве',
+        text: 'Навык принимать правки от редактора и согласовывать сюжеты с другими авторами (особенно важно для общего лора).'
+      }
+    ],
+    art: [
+      {
+        title: 'Владение графическим софтом',
+        text: 'Уверенная работа в цифровых редакторах (Photoshop, Procreate, Clip Studio Paint, SAI, Krita) или в 3D-программах (Blender, Blockbench, Maya). Работы, нарисованные на бумаге и сфотографированные на телефон, не принимаются.'
+      },
+      {
+        title: 'Понимание цифрового пайплайна',
+        text: 'Знание того, как правильно экспортировать файлы (PNG, JPG, PSD), умение работать со слоями и подготавливать арты для использования в монтаже или соцсетях.'
+      },
+      {
+        title: 'Композиция, свет и цвет в цифре',
+        text: 'Понимание того, как строить композицию на холсте, работать с источниками света и подбирать цветовые палитры (чтобы арт не выглядел «плоским»).'
+      },
+      {
+        title: 'Навык следования референсу и стилю',
+        text: 'Умение рисовать по заданному референсу (например, по скину персонажа в Minecraft) или адаптировать свой стиль под общую эстетику BTZProduction.'
+      }
+    ],
+    nya: [
+      {
+        title: 'Эстетичный цифровой образ',
+        text: 'Наличие красивого, милого ника (или умение его придумать) и стильной аватарки, которая вписывается в эстетику проекта.'
+      },
+      {
+        title: 'Кавайный голос',
+        text: 'Мягкий, милый голос, умение использовать кавайные интонации (для голосовых чатов или озвучки роликов).'
+      },
+      {
+        title: 'Цифровой характер и стиль общения',
+        text: 'Умение общаться в чате/голосе в образе (использование милых смайликов, стикеров, эмодзи, специфического сленга), сохраняя при этом адекватность и не переходя границы кринжа.'
+      },
+      {
+        title: 'Насмотренность в digital-эстетике',
+        text: 'Понимание того, что сейчас считается «милым» в интернете (тренды на определенные типы аватарок, кастомные скины в Minecraft, эстетика TikTok/Reels), и умение применять это к себе.'
+      }
+    ]
+  };
+
+  var directorsGrid = document.getElementById('directors-grid');
+  var teamsGrid = document.getElementById('teams-grid');
+  var dateEl = document.getElementById('date-el');
+  var tabBtns = Array.prototype.slice.call(document.querySelectorAll('#tab-header .tab-btn'));
+  var tabPanels = Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
+
+  var TAB_STORAGE_KEY = 'btz_active_tab';
+  var VALID_TABS = ['about', 'members', 'rules', 'join'];
+
+  var currentData = null;
+  var lastJsonString = '';
+
+  var storedTab = null;
+  try { storedTab = window.localStorage.getItem(TAB_STORAGE_KEY); } catch (e) { storedTab = null; }
+  var activeTab = (storedTab && VALID_TABS.indexOf(storedTab) !== -1) ? storedTab : 'about';
+
+  function esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  var VALID_STATUSES = ['online', 'idle', 'dnd', 'offline'];
+
+  function normalizeStatus(status) {
+    var s = String(status || 'offline').toLowerCase();
+    return VALID_STATUSES.indexOf(s) !== -1 ? s : 'offline';
+  }
+
+  
+  function parseMember(entry) {
+    if (entry && typeof entry === 'object') {
+      return { name: String(entry.name || ''), status: normalizeStatus(entry.status) };
+    }
+    return { name: String(entry || ''), status: null };
+  }
+
+  function makeStatusDot(status) {
+    var dot = document.createElement('span');
+    dot.className = 'status-dot status-' + normalizeStatus(status);
+    dot.setAttribute('aria-hidden', 'true');
+    return dot;
+  }
+
+  function updateDate() {
+    var now = new Date();
+    var d = String(now.getDate()).padStart(2, '0');
+    var m = String(now.getMonth() + 1).padStart(2, '0');
+    var y = now.getFullYear();
+    if (dateEl) dateEl.textContent = d + '.' + m + '.' + y;
+  }
+
+  function showTab(tabId) {
+    if (VALID_TABS.indexOf(tabId) === -1) tabId = 'about';
+    activeTab = tabId;
+    tabPanels.forEach(function (panel) {
+      panel.classList.toggle('active', panel.id === 'tab-' + tabId);
+    });
+    tabBtns.forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+    });
+    try { window.localStorage.setItem(TAB_STORAGE_KEY, tabId); } catch (e) {  }
+  }
+
+  function showError(message) {
+    var box = '<div class="load-error">' + esc(message) + '</div>';
+    if (directorsGrid) {
+      directorsGrid.innerHTML = box;
+      directorsGrid.setAttribute('data-error', '1');
+    }
+    if (teamsGrid) {
+      teamsGrid.innerHTML = box;
+      teamsGrid.setAttribute('data-error', '1');
+      teamsBuilt = false;
+    }
+  }
+
+  
+
+  
+  function idPart(str) {
+    return String(str).replace(/[^A-Za-z0-9_-]/g, '_');
+  }
+
+  function memberElId(teamKey, rankKey, name) {
+    return 'member-' + idPart(teamKey) + '-' + idPart(rankKey) + '-' + idPart(name);
+  }
+
+  function directorElId(key) {
+    return 'director-' + idPart(key);
+  }
+
+  
+  function syncStatusDot(container, status) {
+    var dot = container.querySelector('.status-dot');
+    if (!status) {
+      if (dot) dot.parentNode.removeChild(dot);
+      return;
+    }
+    var cls = 'status-' + normalizeStatus(status);
+    if (!dot) {
+      dot = makeStatusDot(status);
+      container.appendChild(dot);
+      return;
+    }
+    
+    Array.prototype.slice.call(dot.classList).forEach(function (c) {
+      if (c.indexOf('status-') === 0 && c !== 'status-dot' && c !== cls) {
+        dot.classList.remove(c);
+      }
+    });
+    if (!dot.classList.contains(cls)) dot.classList.add(cls);
+  }
+
+  
+
+  function renderDirectors() {
+    if (!directorsGrid) return;
+
+    if (!currentData || !currentData.directors) {
+      if (directorsGrid.getAttribute('data-error') !== '1') {
+        directorsGrid.innerHTML = '<div class="load-error">Данные о директорах недоступны.</div>';
+        directorsGrid.setAttribute('data-error', '1');
+      }
+      return;
+    }
+    if (directorsGrid.getAttribute('data-error') === '1') {
+      directorsGrid.innerHTML = '';
+      directorsGrid.removeAttribute('data-error');
+    }
+
+    var directors = currentData.directors;
+    var seen = {};
+
+    DIRECTOR_ORDER.forEach(function (key) {
+      var rawNick = directors[key];
+      var nick = '';
+      var dirStatus = null;
+
+      if (rawNick && typeof rawNick === 'object') {
+        nick = String(rawNick.name || '').trim();
+        if (nick) dirStatus = normalizeStatus(rawNick.status);
+      } else if (typeof rawNick === 'string') {
+        nick = rawNick.trim();
+      }
+
+      var isEmpty = nick.length === 0;
+      var color = DIRECTOR_COLORS[key] || '#7a7a85';
+      var title = DIRECTOR_TITLES[key] || key;
+      var nickDisplay = isEmpty ? 'Пусто...' : nick;
+      var elId = directorElId(key);
+      seen[elId] = true;
+
+      var card = document.getElementById(elId);
+      if (!card) {
+        card = document.createElement('div');
+        card.id = elId;
+        card.setAttribute('data-director-key', key);
+        card.innerHTML =
+          '<span class="dot"></span>' +
+          '<span class="role-info">' +
+            '<span class="role-name"></span>' +
+            '<span class="role-nick"></span>' +
+          '</span>';
+
+        
+        var nextEl = null;
+        for (var i = DIRECTOR_ORDER.indexOf(key) + 1; i < DIRECTOR_ORDER.length; i++) {
+          var candidate = document.getElementById(directorElId(DIRECTOR_ORDER[i]));
+          if (candidate) { nextEl = candidate; break; }
+        }
+        if (nextEl) directorsGrid.insertBefore(card, nextEl);
+        else directorsGrid.appendChild(card);
+      }
+
+      
+      var wantClass = 'director-card' + (isEmpty ? ' is-empty' : '');
+      if (card.className !== wantClass) card.className = wantClass;
+
+      var dotEl = card.querySelector('.dot');
+      if (dotEl) {
+        var wantBg = isEmpty ? '#3a3a48' : color;
+        if (dotEl.style.background !== wantBg) dotEl.style.background = wantBg;
+      }
+
+      var nameEl = card.querySelector('.role-name');
+      if (nameEl && nameEl.textContent !== title) nameEl.textContent = title;
+
+      var nickEl = card.querySelector('.role-nick');
+      if (nickEl) {
+        
+        var textNode = null;
+        for (var n = 0; n < nickEl.childNodes.length; n++) {
+          if (nickEl.childNodes[n].nodeType === 3) { textNode = nickEl.childNodes[n]; break; }
+        }
+        if (textNode) {
+          if (textNode.nodeValue !== nickDisplay) textNode.nodeValue = nickDisplay;
+        } else {
+          nickEl.insertBefore(document.createTextNode(nickDisplay), nickEl.firstChild);
+        }
+        syncStatusDot(nickEl, dirStatus);
+      }
+    });
+
+    
+    Array.prototype.slice.call(directorsGrid.querySelectorAll('[data-director-key]')).forEach(function (el) {
+      if (!seen[el.id]) el.parentNode.removeChild(el);
+    });
+  }
+
+  
+
+  var teamsBuilt = false;
+
+  
+  function buildTeamsSkeleton() {
+    if (teamsBuilt || !teamsGrid) return;
+    teamsGrid.innerHTML = '';
+
+    TEAM_ORDER.forEach(function (key) {
+      var color = TEAM_COLORS[key] || '#7a7a85';
+      var name = TEAM_NAMES[key] || key;
+
+      var block = document.createElement('div');
+      block.className = 'team-block';
+      block.id = 'team-' + idPart(key);
+      block.setAttribute('data-team-key', key);
+      block.style.borderLeft = '4px solid ' + color;
+
+      var title = document.createElement('div');
+      title.className = 'team-title';
+      title.style.color = color;
+      title.textContent = name;
+      block.appendChild(title);
+
+      var intro = TEAM_INTROS[key];
+      if (intro) {
+        var descEl = document.createElement('p');
+        descEl.className = 'team-desc';
+        var em = document.createElement('em');
+        em.textContent = intro;
+        descEl.appendChild(em);
+        block.appendChild(descEl);
+      }
+
+      var criteria = TEAM_CRITERIA[key];
+      if (criteria && criteria.length) {
+        var critUl = document.createElement('ul');
+        critUl.className = 'team-criteria';
+        criteria.forEach(function (item) {
+          var critLi = document.createElement('li');
+          var titleEl = document.createElement('span');
+          titleEl.className = 'crit-title';
+          titleEl.textContent = item.title;
+          critLi.appendChild(titleEl);
+          if (item.text) {
+            var textEl = document.createElement('span');
+            textEl.className = 'crit-text';
+            textEl.textContent = item.text;
+            critLi.appendChild(textEl);
+          }
+          critUl.appendChild(critLi);
+        });
+        block.appendChild(critUl);
+      }
+
+      RANK_ORDER.forEach(function (rank) {
+        var group = document.createElement('div');
+        group.className = 'rank-group';
+        group.setAttribute('data-rank', rank);
+
+        var rankTitle = document.createElement('div');
+        rankTitle.className = 'rank-title';
+
+        var badge = document.createElement('span');
+        badge.className = 'rank-badge';
+        badge.setAttribute('data-rank', rank);
+
+        var iconEl = document.createElement('span');
+        iconEl.className = 'rank-icon';
+        iconEl.textContent = RANK_ICONS[rank] || '';
+        badge.appendChild(iconEl);
+        badge.appendChild(document.createTextNode(RANK_TITLES[rank] || rank));
+
+        rankTitle.appendChild(badge);
+        group.appendChild(rankTitle);
+
+        var list = document.createElement('ul');
+        list.className = 'member-list';
+        group.appendChild(list);
+
+        block.appendChild(group);
+      });
+
+      teamsGrid.appendChild(block);
+    });
+
+    teamsBuilt = true;
+  }
+
+  
+  function upsertMemberTag(list, teamKey, rankKey, info, color) {
+    var elId = memberElId(teamKey, rankKey, info.name);
+    var li = document.getElementById(elId);
+
+    if (!li) {
+      li = document.createElement('li');
+      li.id = elId;
+      li.className = 'member-tag';
+      li.setAttribute('data-name', info.name);
+      li.appendChild(document.createTextNode(info.name));
+      list.appendChild(li);
+    } else if (li.parentNode !== list) {
+      
+      list.appendChild(li);
+    }
+
+    if (li.style.borderLeftColor !== color) li.style.borderLeftColor = color;
+
+    
+    var textNode = null;
+    for (var n = 0; n < li.childNodes.length; n++) {
+      if (li.childNodes[n].nodeType === 3) { textNode = li.childNodes[n]; break; }
+    }
+    if (textNode) {
+      if (textNode.nodeValue !== info.name) textNode.nodeValue = info.name;
+    } else {
+      li.insertBefore(document.createTextNode(info.name), li.firstChild);
+    }
+
+    syncStatusDot(li, info.status);
+    return li;
+  }
+
+  
+  function reconcileMemberList(list, teamKey, rankKey, members, color) {
+    var desiredIds = {};
+    var orderedEls = [];
+
+    members.forEach(function (entry) {
+      var info = parseMember(entry);
+      if (!info.name) return;
+      var li = upsertMemberTag(list, teamKey, rankKey, info, color);
+      desiredIds[li.id] = true;
+      orderedEls.push(li);
+    });
+
+    
+    Array.prototype.slice.call(list.querySelectorAll('.member-tag')).forEach(function (el) {
+      if (!desiredIds[el.id]) el.parentNode.removeChild(el);
+    });
+
+    
+    var emptyEl = list.querySelector('.empty-state');
+    if (orderedEls.length === 0) {
+      if (!emptyEl) {
+        emptyEl = document.createElement('li');
+        emptyEl.className = 'empty-state';
+        emptyEl.textContent = 'Место свободно';
+        list.appendChild(emptyEl);
+      }
+    } else if (emptyEl) {
+      emptyEl.parentNode.removeChild(emptyEl);
+    }
+
+    
+    var refNode = emptyEl && orderedEls.length === 0 ? emptyEl : null;
+    if (!refNode) {
+      var current = list.firstChild;
+      for (var i = 0; i < orderedEls.length; i++) {
+        var el = orderedEls[i];
+        if (el === current) {
+          current = current.nextSibling;
+        } else {
+          list.insertBefore(el, current);
+        }
+      }
+    }
+  }
+
+  function renderTeams() {
+    if (!teamsGrid) return;
+
+    if (!currentData || !currentData.teams) {
+      if (teamsGrid.getAttribute('data-error') !== '1') {
+        teamsGrid.innerHTML = '<div class="load-error">Данные о командах недоступны.</div>';
+        teamsGrid.setAttribute('data-error', '1');
+        teamsBuilt = false;
+      }
+      return;
+    }
+    if (teamsGrid.getAttribute('data-error') === '1') {
+      teamsGrid.innerHTML = '';
+      teamsGrid.removeAttribute('data-error');
+      teamsBuilt = false;
+    }
+
+    buildTeamsSkeleton();
+
+    var teams = currentData.teams;
+
+    TEAM_ORDER.forEach(function (teamKey) {
+      var team = teams[teamKey] || {};
+      var color = TEAM_COLORS[teamKey] || '#7a7a85';
+      var block = document.getElementById('team-' + idPart(teamKey));
+      if (!block) return;
+
+      RANK_ORDER.forEach(function (rankKey) {
+        var group = block.querySelector('.rank-group[data-rank="' + rankKey + '"]');
+        if (!group) return;
+        var list = group.querySelector('.member-list');
+        if (!list) return;
+        var members = Array.isArray(team[rankKey]) ? team[rankKey] : [];
+        reconcileMemberList(list, teamKey, rankKey, members, color);
+      });
+    });
+  }
+
+  function renderAll() {
+    renderDirectors();
+    renderTeams();
+  }
+
+  function loadData(isInitial) {
+    return fetch(DATA_URL, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        currentData = data;
+        lastJsonString = JSON.stringify(data);
+        renderAll();
+        
+      })
+      .catch(function (err) {
+        console.error('BTZProduction: не удалось загрузить data.json', err);
+        showError(
+          'Не удалось загрузить data.json. Откройте страницу через локальный сервер ' +
+          '(например, VS Code Live Server) — при открытии через file:// не работает.'
+        );
+        if (isInitial && dateEl) updateDate();
+      });
+  }
+
+  
+  function onlyStatusesChanged(prev, next) {
+    if (!prev || !next) return false;
+    var a = JSON.parse(JSON.stringify(prev));
+    var b = JSON.parse(JSON.stringify(next));
+    function strip(d) {
+      if (!d || !d.teams) return;
+      TEAM_ORDER.forEach(function (tk) {
+        var team = d.teams[tk] || {};
+        RANK_ORDER.forEach(function (rk) {
+          var arr = Array.isArray(team[rk]) ? team[rk] : [];
+          team[rk] = arr.map(function (entry) {
+            if (entry && typeof entry === 'object') return { name: entry.name };
+            return entry;
+          });
+        });
+      });
+    }
+    strip(a);
+    strip(b);
+    return JSON.stringify(a) === JSON.stringify(b);
+  }
+
+  function pollData() {
+    fetch(DATA_URL, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var str = JSON.stringify(data);
+        if (str === lastJsonString) {
+          
+          return;
+        }
+
+        var prev = currentData;
+        currentData = data;
+        lastJsonString = str;
+
+        
+        
+        
+        if (onlyStatusesChanged(prev, data)) {
+          renderTeams();
+          
+        } else {
+          renderAll();
+        }
+      })
+      .catch(function (err) {
+        console.error('BTZProduction: ошибка автообновления data.json', err);
+      });
+  }
+
+  tabBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      showTab(btn.getAttribute('data-tab'));
+    });
+  });
+
+  
+  document.addEventListener('click', function (e) {
+    var trigger = e.target && e.target.closest ? e.target.closest('[data-goto-tab]') : null;
+    if (!trigger) return;
+    var target = trigger.getAttribute('data-goto-tab');
+    if (target) showTab(target);
+  });
+
+  updateDate();
+  showTab(activeTab); 
+  loadData(true);
+
+  setInterval(function () {
+    updateDate();
+    pollData();
+  }, REFRESH_MS);
+
+  
+  var supportBtn = document.querySelector('.support-btn');
+  var modal = document.getElementById('donation-modal');
+  var closeBtn = document.getElementById('modal-close-btn');
+  var amountInput = document.getElementById('donation-amount');
+  var submitBtn = document.getElementById('donation-submit-btn');
+  var errorEl = document.getElementById('donation-error');
+
+  function openModal() {
+    if (modal) {
+      modal.classList.add('active');
+      amountInput.value = '';
+      errorEl.textContent = '';
+      setTimeout(function() { amountInput.focus(); }, 100);
+    }
+  }
+
+  function closeModal() {
+    if (modal) {
+      modal.classList.remove('active');
+    }
+  }
+
+  if (supportBtn) {
+    supportBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openModal();
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  }
+
+  if (amountInput) {
+    amountInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        submitBtn.click();
+      }
+    });
+  }
+
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function() {
+      var amount = parseFloat(amountInput.value);
+      if (!amount || amount < 50) {
+        errorEl.textContent = 'Минимальная сумма пожертвования — 50 ₽';
+        return;
+      }
+
+      errorEl.textContent = '';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Обработка...';
+
+      
+      if (window.location.protocol === 'file:') {
+        errorEl.textContent = '⚠️ Сайт открыт как файл. Запустите сервер (python run.py) и откройте http://localhost:8080';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Отправить';
+        return;
+      }
+
+      fetch('/create-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ amount: amount })
+      })
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        if (data.error) {
+          errorEl.textContent = data.error;
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Отправить';
+        } else if (data.confirmation_url) {
+          window.location.href = data.confirmation_url;
+        } else {
+          errorEl.textContent = 'Неизвестная ошибка при создании платежа';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Отправить';
+        }
+      })
+      .catch(function(err) {
+        console.error('Ошибка платежа:', err);
+        errorEl.textContent = 'Ошибка сети. Убедитесь, что сервер запущен (python run.py).';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Отправить';
+      });
+    });
+  }
+
+  
+  var ws = null;
+  var clientId = 'client_' + Math.random().toString(36).substr(2, 9);
+  console.log('🫧 Мой clientId:', clientId);
+
+  function connectWS() {
+    var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    var host = window.location.hostname || 'localhost';
+    var wsUrl = protocol + '//' + host + ':8765';
+    
+    console.log('🫧 Подключение к WebSocket:', wsUrl);
+    ws = new WebSocket(wsUrl);
+    
+    ws.onopen = function() {
+      console.log('✅ WebSocket подключен');
+      ws.send(JSON.stringify({ type: 'init', id: clientId }));
+    };
+    
+    ws.onmessage = function(event) {
+      console.log('📩 Получено сообщение:', event.data);
+      try {
+        var data = JSON.parse(event.data);
+        if (data.type === 'pop') {
+          console.log('🫧 Создаю эффект от другого клиента:', data.x, data.y);
+          createPopEffect(data.x, data.y);
+        }
+      } catch (e) {
+        console.error('WS parse error', e);
+      }
+    };
+    
+    ws.onclose = function() {
+      console.log('🫧 WebSocket отключен, переподключение через 3с...');
+      setTimeout(connectWS, 3000);
+    };
+    
+    ws.onerror = function(err) {
+      console.error('❌ WebSocket ошибка:', err);
+    };
+  }
+
+  function createPopEffect(x, y) {
+    var pop = document.createElement('div');
+    pop.className = 'pop-effect';
+    pop.style.left = x + 'px';
+    pop.style.top = y + 'px';
+    document.body.appendChild(pop);
+    
+    setTimeout(function() {
+      if (pop.parentNode) {
+        pop.parentNode.removeChild(pop);
+      }
+    }, 600);
+  }
+
+  document.addEventListener('click', function(e) {
+    console.log('🖱️ Клик в координатах:', e.clientX, e.clientY);
+    createPopEffect(e.clientX, e.clientY);
+    
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      var msg = {
+        type: 'pop',
+        x: e.clientX,
+        y: e.clientY,
+        clientId: clientId
+      };
+      console.log('📤 Отправляю клик другим клиентам:', msg);
+      ws.send(JSON.stringify(msg));
+    } else {
+      console.warn('⚠️ WebSocket не подключен, клик не отправлен');
+    }
+  });
+
+  connectWS();
+})();
+</script>
+</body>
+</html>

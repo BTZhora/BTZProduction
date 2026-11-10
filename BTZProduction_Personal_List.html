@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<title>BTZProduction - Personal List</title>
+<style>
+  /* Стили оставляем прежними, они не меняются */
+  body { font-family: 'Segoe UI', sans-serif; background: #0f0f13; color: #e8e8e8; padding: 40px 20px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .team-block { margin-bottom: 24px; padding: 20px; border-radius: 14px; background: #14141a; border: 1px solid #1f1f28; }
+  .team-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: #c2c2cc; text-transform: uppercase; }
+  .rank-group { margin-bottom: 12px; }
+  .rank-title { font-size: 0.85rem; color: #8a8a95; margin-bottom: 6px; }
+  .member-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .member-tag { background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; border-left: 2px solid #fff; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1 style="text-align:center; margin-bottom: 40px;">BTZProduction - Состав</h1>
+<!-- ПРОДАКШН -->
+<div class="team-block" id="team-production">
+<div class="team-title">Продакшн-команда</div>
+<div class="rank-group">
+<div class="rank-title">📘 Trainee</div>
+<ul class="member-list" id="production-trainee"><li class="member-tag">k_forys</li><li class="member-tag">stolock</li></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🌱 Junior</div>
+<ul class="member-list" id="production-junior"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">⚡ Middle</div>
+<ul class="member-list" id="production-middle"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🔥 Senior</div>
+<ul class="member-list" id="production-senior"></ul>
+</div>
+</div>
+<!-- КРЕАТИВ -->
+<div class="team-block" id="team-creative">
+<div class="team-title">Креатив-команда</div>
+<div class="rank-group">
+<div class="rank-title">📘 Trainee</div>
+<ul class="member-list" id="creative-trainee"><li class="member-tag">conchababki_00006</li></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🌱 Junior</div>
+<ul class="member-list" id="creative-junior"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">⚡ Middle</div>
+<ul class="member-list" id="creative-middle"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🔥 Senior</div>
+<ul class="member-list" id="creative-senior"></ul>
+</div>
+</div>
+<!-- АРТ -->
+<div class="team-block" id="team-art">
+<div class="team-title">Арт-команда</div>
+<div class="rank-group">
+<div class="rank-title">📘 Trainee</div>
+<ul class="member-list" id="art-trainee"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🌱 Junior</div>
+<ul class="member-list" id="art-junior"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">⚡ Middle</div>
+<ul class="member-list" id="art-middle"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🔥 Senior</div>
+<ul class="member-list" id="art-senior"></ul>
+</div>
+</div>
+<!-- ЛИТ -->
+<div class="team-block" id="team-lit">
+<div class="team-title">Лит-команда</div>
+<div class="rank-group">
+<div class="rank-title">📘 Trainee</div>
+<ul class="member-list" id="lit-trainee"><li class="member-tag">api_gold</li></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🌱 Junior</div>
+<ul class="member-list" id="lit-junior"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">⚡ Middle</div>
+<ul class="member-list" id="lit-middle"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🔥 Senior</div>
+<ul class="member-list" id="lit-senior"></ul>
+</div>
+</div>
+<!-- БРЕНД -->
+<div class="team-block" id="team-brand">
+<div class="team-title">Бренд-команда</div>
+<div class="rank-group">
+<div class="rank-title">📘 Trainee</div>
+<ul class="member-list" id="brand-trainee"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🌱 Junior</div>
+<ul class="member-list" id="brand-junior"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">⚡ Middle</div>
+<ul class="member-list" id="brand-middle"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🔥 Senior</div>
+<ul class="member-list" id="brand-senior"></ul>
+</div>
+</div>
+<!-- НЯ -->
+<div class="team-block" id="team-nya">
+<div class="team-title">Ня-команда</div>
+<div class="rank-group">
+<div class="rank-title">📘 Trainee</div>
+<ul class="member-list" id="nya-trainee"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🌱 Junior</div>
+<ul class="member-list" id="nya-junior"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">⚡ Middle</div>
+<ul class="member-list" id="nya-middle"></ul>
+</div>
+<div class="rank-group">
+<div class="rank-title">🔥 Senior</div>
+<ul class="member-list" id="nya-senior"></ul>
+</div>
+</div>
+</div>
+</body>
+</html>

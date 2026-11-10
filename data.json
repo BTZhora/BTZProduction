@@ -1,0 +1,127 @@
+{
+  "directors": {
+    "owner": "BTZhora, Onlyyy43, lipMellie",
+    "general": "n1ckf1nder",
+    "production": "albibekk",
+    "creative": "stfuhamorry",
+    "brand": "",
+    "art": "the_pat4",
+    "lit": "",
+    "nya": "theburabakara"
+  },
+  "teams": {
+    "production": {
+      "trainee": [
+        {
+          "name": "xyu0777_25616",
+          "status": "offline"
+        },
+        {
+          "name": "stolock",
+          "status": "online"
+        },
+        {
+          "name": "limesweet",
+          "status": "offline"
+        },
+        {
+          "name": "qwazyaa",
+          "status": "idle"
+        },
+        {
+          "name": "hawertyyy",
+          "status": "offline"
+        },
+        {
+          "name": "chpurik0",
+          "status": "idle"
+        }
+      ],
+      "junior": [],
+      "middle": [],
+      "senior": []
+    },
+    "creative": {
+      "trainee": [
+        {
+          "name": "wet0680",
+          "status": "offline"
+        },
+        {
+          "name": "xyu0777_25616",
+          "status": "offline"
+        },
+        {
+          "name": "stolock",
+          "status": "online"
+        },
+        {
+          "name": "conchababki_00006",
+          "status": "idle"
+        },
+        {
+          "name": "limesweet",
+          "status": "offline"
+        },
+        {
+          "name": "ziv0635",
+          "status": "offline"
+        },
+        {
+          "name": "hawertyyy",
+          "status": "offline"
+        },
+        {
+          "name": "chpurik0",
+          "status": "idle"
+        },
+        {
+          "name": "_0591",
+          "status": "offline"
+        }
+      ],
+      "junior": [
+        {
+          "name": "zxcmus",
+          "status": "online"
+        }
+      ],
+      "middle": [],
+      "senior": []
+    },
+    "art": {
+      "trainee": [],
+      "junior": [],
+      "middle": [],
+      "senior": []
+    },
+    "lit": {
+      "trainee": [
+        {
+          "name": "api_gold",
+          "status": "online"
+        }
+      ],
+      "junior": [],
+      "middle": [],
+      "senior": []
+    },
+    "brand": {
+      "trainee": [],
+      "junior": [],
+      "middle": [],
+      "senior": []
+    },
+    "nya": {
+      "trainee": [
+        {
+          "name": "stolock",
+          "status": "online"
+        }
+      ],
+      "junior": [],
+      "middle": [],
+      "senior": []
+    }
+  }
+}

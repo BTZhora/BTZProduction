@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTZProduction - Personal List</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0f0f13;
+    color: #e8e8e8;
+    padding: 40px 20px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ffd1dc, #d8c2ff, #c2ffd8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+
+  header p {
+    color: #7a7a85;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .date {
+    font-size: 0.7rem;
+    color: #4a4a55;
+    letter-spacing: 0.15em;
+    margin-top: 6px;
+  }
+
+  .about-block {
+    background: linear-gradient(135deg, rgba(255, 209, 220, 0.08), rgba(216, 194, 255, 0.08), rgba(194, 255, 216, 0.08));
+    border: 1px solid rgba(216, 194, 255, 0.18);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .about-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4a4a55;
+    margin-bottom: 14px;
+    padding-left: 4px;
+    font-weight: 600;
+  }
+
+  .about-lead {
+    font-size: 0.95rem;
+    color: #d8d8e0;
+    font-weight: 500;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .about-block p {
+    font-size: 0.85rem;
+    color: #9a9aa5;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .about-goal {
+    color: #c2c2cc !important;
+    font-weight: 500;
+    margin-top: 14px !important;
+    padding-top: 12px;
+    border-top: 1px solid #1f1f28;
+  }
+
+  .about-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .about-links a {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: #e8e8e8;
+    background: rgba(15, 15, 19, 0.6);
+    border: 1px solid #2a2a35;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .about-links a:hover {
+    transform: translateY(-2px);
+    background: rgba(15, 15, 19, 0.9);
+    border-color: #4a4a55;
+  }
+
+  .level {
+    margin-bottom: 24px;
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .level-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4a4a55;
+    margin-bottom: 12px;
+    padding-left: 4px;
+    font-weight: 600;
+  }
+
+  .roles {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .role {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: rgba(15, 15, 19, 0.55);
+    border-left: 3px solid;
+    transition: transform 0.15s ease, background 0.15s ease;
+    cursor: default;
+  }
+
+  .role:hover {
+    transform: translateX(4px);
+    background: rgba(15, 15, 19, 0.75);
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .role-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .role-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .role-nick {
+    font-size: 0.72rem;
+    color: #8a8a95;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .role-desc {
+    font-size: 0.78rem;
+    color: #9a9aa5;
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .level-1 {
+    background: linear-gradient(135deg, rgba(255, 209, 220, 0.14), rgba(255, 216, 194, 0.14));
+    border: 1px solid rgba(255, 209, 220, 0.18);
+  }
+
+  .level-1 .role {
+    padding: 16px 20px;
+    background: rgba(15, 15, 19, 0.5);
+  }
+
+  .level-1 .role-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .level-1 .role-nick {
+    font-size: 0.78rem;
+  }
+
+  .directors-block {
+    background: linear-gradient(135deg, rgba(216, 194, 255, 0.10), rgba(194, 255, 216, 0.10));
+    border: 1px solid rgba(216, 194, 255, 0.18);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  .directors-grid {
+    display: grid;
+    gap: 10px;
+  }
+
+  .directors-grid-all {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .col-production {
+    background: rgba(255, 216, 194, 0.10);
+    border: 1px solid rgba(255, 216, 194, 0.20);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .col-creative {
+    background: rgba(216, 194, 255, 0.10);
+    border: 1px solid rgba(216, 194, 255, 0.18);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .col-brand {
+    background: rgba(194, 255, 216, 0.10);
+    border: 1px solid rgba(194, 255, 216, 0.18);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .col-art {
+    background: rgba(255, 216, 204, 0.10);
+    border: 1px solid rgba(255, 216, 204, 0.20);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .col-lit {
+    background: rgba(216, 208, 232, 0.10);
+    border: 1px solid rgba(216, 208, 232, 0.20);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .col-ny {
+    background: rgba(255, 184, 216, 0.10);
+    border: 1px solid rgba(255, 184, 216, 0.22);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .directors-grid-all .role {
+    padding: 12px 14px;
+  }
+
+  .directors-grid-all .role-name {
+    font-size: 0.85rem;
+  }
+
+  .role-nick-empty {
+    color: #5a5a65;
+    font-style: italic;
+  }
+
+  .teams-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .teams-grid .roles {
+    gap: 6px;
+    padding: 20px;
+    border-radius: 14px;
+    height: 100%;
+  }
+
+  .team-creative {
+    background: linear-gradient(135deg, rgba(255, 232, 194, 0.13), rgba(255, 245, 194, 0.06));
+    border: 1px solid rgba(255, 232, 194, 0.18);
+  }
+
+  .team-brand {
+    background: linear-gradient(135deg, rgba(255, 194, 232, 0.13), rgba(224, 194, 255, 0.06));
+    border: 1px solid rgba(255, 194, 232, 0.18);
+  }
+
+  .team-production {
+    background: linear-gradient(135deg, rgba(194, 224, 255, 0.12), rgba(208, 194, 255, 0.08));
+    border: 1px solid rgba(194, 224, 255, 0.18);
+  }
+
+  .team-art {
+    background: linear-gradient(135deg, rgba(255, 216, 204, 0.13), rgba(194, 255, 232, 0.06));
+    border: 1px solid rgba(255, 216, 204, 0.18);
+  }
+
+  .team-lit {
+    background: linear-gradient(135deg, rgba(216, 208, 232, 0.13), rgba(194, 194, 232, 0.06));
+    border: 1px solid rgba(216, 208, 232, 0.18);
+  }
+
+  .team-ny {
+    background: linear-gradient(135deg, rgba(255, 184, 216, 0.13), rgba(224, 200, 255, 0.08));
+    border: 1px solid rgba(255, 184, 216, 0.22);
+  }
+
+  .level-actors {
+    background: linear-gradient(135deg, rgba(224, 216, 208, 0.12), rgba(224, 216, 208, 0.05));
+    border: 1px solid rgba(224, 216, 208, 0.18);
+  }
+
+  .level-actors .role {
+    background: rgba(15, 15, 19, 0.5);
+    padding: 14px 20px;
+  }
+
+  .level-actors .role-name {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .connector {
+    text-align: center;
+    color: #2a2a35;
+    font-size: 1.2rem;
+    margin: 8px 0;
+    user-select: none;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #3a3a45;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .rules-block {
+    margin-top: 48px;
+    padding: 24px;
+    background: #14141a;
+    border: 1px solid #1f1f28;
+    border-radius: 14px;
+  }
+
+  .rules-block h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #c2c2cc;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .rules-block .rules-version {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #4a4a55;
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+  }
+
+  .rules-block h3 {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8a8a95;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1f1f28;
+  }
+
+  .rules-block h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #b8b8c2;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+
+  .rules-block p {
+    font-size: 0.85rem;
+    color: #9a9aa5;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+
+  .rules-block ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 8px;
+  }
+
+  .rules-block ul li {
+    font-size: 0.83rem;
+    color: #9a9aa5;
+    padding: 4px 0 4px 18px;
+    position: relative;
+    line-height: 1.55;
+  }
+
+  .rules-block ul li::before {
+    content: "·";
+    position: absolute;
+    left: 4px;
+    color: #4a4a55;
+    font-weight: 700;
+  }
+
+  .rules-block .rules-footer {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #1f1f28;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #7a7a85;
+    font-style: italic;
+  }
+
+  .roles-description-block {
+    margin-top: 48px;
+    padding: 24px;
+    background: #14141a;
+    border: 1px solid #1f1f28;
+    border-radius: 14px;
+  }
+
+  .roles-description-block h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #c2c2cc;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .roles-description-version {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #4a4a55;
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+  }
+
+  .roles-description-block h3 {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8a8a95;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1f1f28;
+  }
+
+  .roles-description-block h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #b8b8c2;
+    margin-top: 18px;
+    margin-bottom: 6px;
+  }
+
+  .roles-description-block p {
+    font-size: 0.83rem;
+    color: #9a9aa5;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
+  .chain {
+    position: relative;
+    padding-left: 22px;
+    margin-top: 8px;
+  }
+
+  .chain::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, var(--chain-from), var(--chain-to));
+  }
+
+  .chain-creative {
+    --chain-from: #d8c2ff;
+    --chain-to: #e8ffc2;
+  }
+
+  .chain-brand {
+    --chain-from: #c2ffd8;
+    --chain-to: #c2d8e0;
+  }
+
+  .chain-production {
+    --chain-from: #ffd8c2;
+    --chain-to: #c2f0ff;
+  }
+
+  .chain-art {
+    --chain-from: #ffd8cc;
+    --chain-to: #c2ffe8;
+  }
+
+  .chain-lit {
+    --chain-from: #d8d0e8;
+    --chain-to: #c2c2e8;
+  }
+
+  .chain-ny {
+    --chain-from: #ffb8d8;
+    --chain-to: #e0c8ff;
+  }
+
+  .chain-actors {
+    --chain-from: #e0d8d0;
+    --chain-to: #ffe0a0;
+  }
+
+  .chain h4 {
+    position: relative;
+  }
+
+  .chain-creative h4::before,
+  .chain-brand h4::before,
+  .chain-production h4::before,
+  .chain-art h4::before,
+  .chain-lit h4::before,
+  .chain-ny h4::before,
+  .chain-actors h4::before {
+    content: "";
+    position: absolute;
+    left: -22px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #14141a;
+  }
+
+  .chain-creative h4:nth-of-type(1)::before { background: #d8c2ff; }
+  .chain-creative h4:nth-of-type(2)::before { background: #fff5c2; }
+  .chain-creative h4:nth-of-type(3)::before { background: #ffe8c2; }
+  .chain-creative h4:nth-of-type(4)::before { background: #e8ffc2; }
+  .chain-creative h4:nth-of-type(5)::before { background: #c2ffe8; }
+
+  .chain-brand h4:nth-of-type(1)::before { background: #c2ffd8; }
+  .chain-brand h4:nth-of-type(2)::before { background: #ffc2e8; }
+  .chain-brand h4:nth-of-type(3)::before { background: #e0c2ff; }
+  .chain-brand h4:nth-of-type(4)::before { background: #c2d8e0; }
+
+  .chain-production h4:nth-of-type(1)::before { background: #ffd8c2; }
+  .chain-production h4:nth-of-type(2)::before { background: #ffc2c2; }
+  .chain-production h4:nth-of-type(3)::before { background: #c2e0ff; }
+  .chain-production h4:nth-of-type(4)::before { background: #d0c2ff; }
+  .chain-production h4:nth-of-type(5)::before { background: #c2f0ff; }
+
+  .chain-art h4:nth-of-type(1)::before { background: #ffd8cc; }
+  .chain-art h4:nth-of-type(2)::before { background: #ffc2cc; }
+  .chain-art h4:nth-of-type(3)::before { background: #c2d8ff; }
+  .chain-art h4:nth-of-type(4)::before { background: #fff0d8; }
+  .chain-art h4:nth-of-type(5)::before { background: #c2ffe8; }
+
+  .chain-lit h4:nth-of-type(1)::before { background: #d8d0e8; }
+  .chain-lit h4:nth-of-type(2)::before { background: #ffe8d8; }
+  .chain-lit h4:nth-of-type(3)::before { background: #e8e0d0; }
+  .chain-lit h4:nth-of-type(4)::before { background: #c2c2e8; }
+
+  .chain-ny h4:nth-of-type(1)::before { background: #ffb8d8; }
+  .chain-ny h4:nth-of-type(2)::before { background: #e8c8ff; }
+  .chain-ny h4:nth-of-type(3)::before { background: #ffcce0; }
+  .chain-ny h4:nth-of-type(4)::before { background: #ffe8f0; }
+  .chain-ny h4:nth-of-type(5)::before { background: #e0c8ff; }
+
+  .chain-actors h4:nth-of-type(1)::before { background: #e0d8d0; }
+  .chain-actors h4:nth-of-type(2)::before { background: #ffe0a0; }
+
+  @media (max-width: 900px) {
+    .directors-grid-all {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .teams-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .team-production,
+    .team-art,
+    .team-lit,
+    .team-ny {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 640px) {
+    header h1 {
+      font-size: 1.8rem;
+    }
+
+    .directors-grid-all,
+    .teams-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .team-production,
+    .team-art,
+    .team-lit,
+    .team-ny {
+      grid-column: span 1;
+    }
+
+    .role-desc {
+      display: none;
+    }
+
+    .role {
+      padding: 10px 14px;
+    }
+
+    .about-block {
+      padding: 18px;
+    }
+
+    .about-links a {
+      padding: 7px 12px;
+      font-size: 0.75rem;
+    }
+
+    .rules-block,
+    .roles-description-block {
+      padding: 18px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>BTZProduction</h1>
+    <p>Personal List</p>
+    <div class="date">07.11.2026</div>
+  </header>
+
+  <div class="about-block">
+    <div class="about-title">О проекте</div>
+    <p class="about-lead">BTZProduction - закрытая команда по созданию контента: моменты с игр, TikTok, Reels, Shorts, арты, фанфики и коллабы.</p>
+    <p>Мы выросли из обычного хауса в продакшн-команду. То, что раньше было просто тусовкой друзей в Minecraft, теперь стало проектом с ролями, дисциплиной и общим брендом. Мы снимаем, монтируем, пишем, рисуем и придумываем - каждый делает то, что умеет лучше всего, и вместе мы собираем это в единый продукт.</p>
+    <p>Основная тема - Minecraft, но этим мы не ограничиваемся. У нас есть CS2, Roblox, челленджи, коллабы и всё, что можно превратить в интересный контент. Мы не хотим загонять себя в рамки одной игры или одного формата - мы хотим пробовать, экспериментировать и находить то, что цепляет зрителя.</p>
+    <p>Снимаемся онлайн: кто-то в кадре, кто-то за кадром, кто-то монтирует, кто-то придумывает. Это не мешает нам работать как одна команда. Креатив и Продакшн - основа контента: креатив даёт идею и сценарий, продакшн снимает и собирает. Арт, Лит, Бренд и Ня-команда работают как на основе вышедших видео, так и самостоятельно.</p>
+    <p>Главное для нас - уважение, честность и желание помогать проекту. Мы поощряем инициативу: если у тебя есть идея, ты можешь собрать команду и сделать видео или арт, не дожидаясь распоряжений. Мы не ждём, пока кто-то скажет, что делать - мы делаем сами и приносим результат.</p>
+    <p>BTZProduction - это не просто чат и не просто сервер. Это место, где люди собираются, чтобы создавать. Мы растём, учимся, ошибаемся и пробуем снова. И мы хотим, чтобы каждый, кто здесь, чувствовал себя частью чего-то большего, чем просто игра.</p>
+    <p class="about-goal">Мы не обещаем миллионы. Мы обещаем движение вперёд, поддержку и контент, который хочется смотреть.</p>
+    <div class="about-links">
+      <a href="https://discord.gg/ufQghhdRVJ" target="_blank" rel="noopener">Discord</a>
+      <a href="https://www.tiktok.com/@btzhora" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://t.me/BTZhoraTG" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://www.youtube.com/@btzhora" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+
+  <div class="level level-1">
+    <div class="level-title">Власть</div>
+    <div class="roles">
+      <div class="role" style="border-left-color: #ffd1dc;">
+        <div class="dot" style="background: #ffd1dc;"></div>
+        <div class="role-info">
+          <span class="role-name">Основатель</span>
+          <span class="role-nick">BTZhora, Onlyyy43</span>
+        </div>
+        <span class="role-desc">финальное слово</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector">│</div>
+
+  <div class="directors-block">
+    <div class="level-title">Директора</div>
+    <div class="directors-grid directors-grid-all">
+      <div class="roles col-production">
+        <div class="role" style="border-left-color: #ffd8c2;">
+          <div class="dot" style="background: #ffd8c2;"></div>
+          <div class="role-info">
+            <span class="role-name">Продакшн-директор</span>
+            <span class="role-nick">albibekk</span>
+          </div>
+        </div>
+      </div>
+      <div class="roles col-creative">
+        <div class="role" style="border-left-color: #d8c2ff;">
+          <div class="dot" style="background: #d8c2ff;"></div>
+          <div class="role-info">
+            <span class="role-name">Креатив-директор</span>
+            <span class="role-nick">stfuhamorry</span>
+          </div>
+        </div>
+      </div>
+      <div class="roles col-brand">
+        <div class="role" style="border-left-color: #c2ffd8;">
+          <div class="dot" style="background: #c2ffd8;"></div>
+          <div class="role-info">
+            <span class="role-name">Бренд-директор</span>
+            <span class="role-nick">HudArtem</span>
+          </div>
+        </div>
+      </div>
+      <div class="roles col-art">
+        <div class="role" style="border-left-color: #ffd8cc;">
+          <div class="dot" style="background: #ffd8cc;"></div>
+          <div class="role-info">
+            <span class="role-name">Арт-директор</span>
+            <span class="role-nick">the_pat4</span>
+          </div>
+        </div>
+      </div>
+      <div class="roles col-lit">
+        <div class="role" style="border-left-color: #d8d0e8;">
+          <div class="dot" style="background: #d8d0e8;"></div>
+          <div class="role-info">
+            <span class="role-name">Лит-директор</span>
+            <span class="role-nick">sde_and_cherry_gh0</span>
+          </div>
+        </div>
+      </div>
+      <div class="roles col-ny">
+        <div class="role" style="border-left-color: #ffb8d8;">
+          <div class="dot" style="background: #ffb8d8;"></div>
+          <div class="role-info">
+            <span class="role-name">Ня-директор</span>
+            <span class="role-nick">theburabakara</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector">│</div>
+
+  <div class="teams-grid">
+    <div class="roles team-creative">
+      <div class="level-title">Креатив-команда</div>
+      <div class="role" style="border-left-color: #fff5c2;">
+        <div class="dot" style="background: #fff5c2;"></div>
+        <span class="role-name">Сценарист</span>
+      </div>
+      <div class="role" style="border-left-color: #ffe8c2;">
+        <div class="dot" style="background: #ffe8c2;"></div>
+        <span class="role-name">Креативщик</span>
+      </div>
+      <div class="role" style="border-left-color: #e8ffc2;">
+        <div class="dot" style="background: #e8ffc2;"></div>
+        <span class="role-name">Формат-мейкер</span>
+      </div>
+      <div class="role" style="border-left-color: #c2ffe8;">
+        <div class="dot" style="background: #c2ffe8;"></div>
+        <span class="role-name">Декоратор</span>
+      </div>
+    </div>
+
+    <div class="roles team-brand">
+      <div class="level-title">Бренд-команда</div>
+      <div class="role" style="border-left-color: #ffc2e8;">
+        <div class="dot" style="background: #ffc2e8;"></div>
+        <span class="role-name">SMM-менеджер</span>
+      </div>
+      <div class="role" style="border-left-color: #e0c2ff;">
+        <div class="dot" style="background: #e0c2ff;"></div>
+        <span class="role-name">Дизайнер</span>
+      </div>
+      <div class="role" style="border-left-color: #c2d8e0;">
+        <div class="dot" style="background: #c2d8e0;"></div>
+        <span class="role-name">Аналитик</span>
+      </div>
+    </div>
+
+    <div class="roles team-production">
+      <div class="level-title">Продакшн-команда</div>
+      <div class="role" style="border-left-color: #ffc2c2;">
+        <div class="dot" style="background: #ffc2c2;"></div>
+        <span class="role-name">Режиссёр</span>
+      </div>
+      <div class="role" style="border-left-color: #c2e0ff;">
+        <div class="dot" style="background: #c2e0ff;"></div>
+        <span class="role-name">Оператор</span>
+      </div>
+      <div class="role" style="border-left-color: #d0c2ff;">
+        <div class="dot" style="background: #d0c2ff;"></div>
+        <span class="role-name">Монтажёр</span>
+      </div>
+      <div class="role" style="border-left-color: #c2f0ff;">
+        <div class="dot" style="background: #c2f0ff;"></div>
+        <span class="role-name">Звукорежиссёр</span>
+      </div>
+    </div>
+
+    <div class="roles team-art">
+      <div class="level-title">Арт-команда</div>
+      <div class="role" style="border-left-color: #ffc2cc;">
+        <div class="dot" style="background: #ffc2cc;"></div>
+        <span class="role-name">Художник</span>
+      </div>
+      <div class="role" style="border-left-color: #c2d8ff;">
+        <div class="dot" style="background: #c2d8ff;"></div>
+        <span class="role-name">3D-художник</span>
+      </div>
+      <div class="role" style="border-left-color: #fff0d8;">
+        <div class="dot" style="background: #fff0d8;"></div>
+        <span class="role-name">Скетчер</span>
+      </div>
+      <div class="role" style="border-left-color: #c2ffe8;">
+        <div class="dot" style="background: #c2ffe8;"></div>
+        <span class="role-name">Колорист</span>
+      </div>
+    </div>
+
+    <div class="roles team-lit">
+      <div class="level-title">Лит-команда</div>
+      <div class="role" style="border-left-color: #ffe8d8;">
+        <div class="dot" style="background: #ffe8d8;"></div>
+        <span class="role-name">Писатель</span>
+      </div>
+      <div class="role" style="border-left-color: #e8e0d0;">
+        <div class="dot" style="background: #e8e0d0;"></div>
+        <span class="role-name">Редактор</span>
+      </div>
+      <div class="role" style="border-left-color: #c2c2e8;">
+        <div class="dot" style="background: #c2c2e8;"></div>
+        <span class="role-name">Лор-мейкер</span>
+      </div>
+    </div>
+
+    <div class="roles team-ny">
+      <div class="level-title">Ня-команда</div>
+      <div class="role" style="border-left-color: #e8c8ff;">
+        <div class="dot" style="background: #e8c8ff;"></div>
+        <span class="role-name">Фембой</span>
+      </div>
+      <div class="role" style="border-left-color: #ffcce0;">
+        <div class="dot" style="background: #ffcce0;"></div>
+        <span class="role-name">Кошкодевочка</span>
+      </div>
+      <div class="role" style="border-left-color: #ffe8f0;">
+        <div class="dot" style="background: #ffe8f0;"></div>
+        <span class="role-name">Тянка</span>
+      </div>
+      <div class="role" style="border-left-color: #e0c8ff;">
+        <div class="dot" style="background: #e0c8ff;"></div>
+        <span class="role-name">Бойкиссер</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector">│</div>
+
+  <div class="level level-actors">
+    <div class="level-title">В кадре</div>
+    <div class="roles">
+      <div class="role" style="border-left-color: #e0d8d0;">
+        <div class="dot" style="background: #e0d8d0;"></div>
+        <span class="role-name">Актёр / Участник</span>
+        <span class="role-desc">в кадре</span>
+      </div>
+      <div class="role" style="border-left-color: #ffe0a0;">
+        <div class="dot" style="background: #ffe0a0;"></div>
+        <span class="role-name">Спонсор</span>
+        <span class="role-desc">поддержка проекта</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rules-block">
+    <h2>Правила BTZProduction</h2>
+    <div class="rules-version">Версия от 07.11.2026</div>
+
+    <h3>Введение</h3>
+    <p>BTZProduction - это закрытая продакшн-команда, которая создаёт контент: видео, ролики, стримы, коллабы. Мы больше не публичное сообщество, а рабочая группа с общими целями, общим брендом и общей ответственностью.</p>
+    <p>Участие в BTZProduction означает, что ты согласен с этими правилами, понимаешь свою роль и готов работать в команде.</p>
+
+    <h3>Часть I: Общие принципы</h3>
+
+    <h4>1. Уважение и атмосфера</h4>
+    <ul>
+      <li>1.1. Уважай всех участников команды: в чате, в голосе, на съёмках и в личных сообщениях.</li>
+      <li>1.2. Запрещены оскорбления, унижения, травля, угрозы и дискриминация по любым признакам.</li>
+      <li>1.3. Конфликты решаются внутри команды, а не публично. Если не можешь решить сам - иди к директору направления или основателю.</li>
+      <li>1.4. Деструктивный троллинг, провокации и попытки развалить атмосферу недопустимы.</li>
+    </ul>
+
+    <h4>2. Конфиденциальность</h4>
+    <ul>
+      <li>2.1. Всё, что обсуждается внутри BTZProduction: идеи, сценарии, конфликты, планы, финансы - не выходит за пределы команды без разрешения основателя.</li>
+      <li>2.2. Запрещено сливать скрины переписок, голосовых, внутренних обсуждений и личных данных участников.</li>
+      <li>2.3. Запрещено публиковать контент BTZProduction от своего имени без согласования.</li>
+      <li>2.4. Уход из команды не отменяет пункты 2.1 - 2.3.</li>
+    </ul>
+
+    <h4>3. Дисциплина и участие</h4>
+    <ul>
+      <li>3.1. Если ты взял задачу - доведи её до конца или предупреди заранее.</li>
+      <li>3.2. Пропуск съёмок, дедлайнов и созвонов без предупреждения - нарушение.</li>
+      <li>3.3. Если ты не можешь участвовать какое-то время - сообщи своему директору.</li>
+      <li>3.4. Систематическое бездействие при наличии роли - повод для пересмотра участия в команде.</li>
+    </ul>
+
+    <h3>Часть II: Контент и съёмки</h3>
+
+    <h4>4. Съёмки и работа на площадке</h4>
+    <ul>
+      <li>4.1. На съёмках действует распоряжение режиссёра и продакшн-директора.</li>
+      <li>4.2. Опоздания, срыв съёмок и помехи процессу - нарушение.</li>
+      <li>4.3. Запрещено снимать или публиковать материалы BTZProduction без согласования с продакшн-директором.</li>
+      <li>4.4. Внешний вид, поведение и речь в кадре должны соответствовать формату проекта.</li>
+    </ul>
+
+    <h4>5. Права на контент</h4>
+    <ul>
+      <li>5.1. Весь контент, созданный в рамках BTZProduction, принадлежит BTZProduction.</li>
+      <li>5.2. Участник не может публиковать общий контент на своих площадках без согласования.</li>
+      <li>5.3. Если участник уходит из команды, он не может использовать материалы BTZProduction в личных целях.</li>
+      <li>5.4. Условия монетизации и распределения дохода обсуждаются отдельно и фиксируются внутри команды.</li>
+    </ul>
+
+    <h4>6. Публикации и бренд</h4>
+    <ul>
+      <li>6.1. Всё, что публикуется от имени BTZProduction, проходит согласование: содержание - с креатив-директором, финальное добро на публикацию - с бренд-директором.</li>
+      <li>6.2. Запрещено публиковать контент, который может навредить репутации BTZProduction.</li>
+      <li>6.3. Личные соцсети участников не должны использоваться для конфликтов, связанных с командой.</li>
+      <li>6.4. Всё, что делает Ня-команда от имени BTZProduction, согласовывается с бренд-директором. Образ персоны - это роль, а не личность; внутри команды все равны.</li>
+    </ul>
+
+    <h3>Часть III: Общение и технические правила</h3>
+
+    <h4>7. Telegram-чат и голосовые</h4>
+    <ul>
+      <li>7.1. Чат - рабочее пространство. Оффтоп допустим, но в разумных пределах.</li>
+      <li>7.2. Запрещён флуд, спам, массовые упоминания без необходимости.</li>
+      <li>7.3. Реклама сторонних проектов и услуг - только с согласования с бренд-директором.</li>
+      <li>7.4. Реклама в ЛС участникам без их согласия - мгновенный бан.</li>
+      <li>7.5. В голосовых каналах уважай других: не создавай шум, помехи и не мешай работе.</li>
+    </ul>
+
+    <h4>8. Игровой сервер (Minecraft)</h4>
+    <ul>
+      <li>8.1. Гриферство, воровство и порча чужих построек запрещены.</li>
+      <li>8.2. Читы, дюпы, эксплойты и моды с преимуществом запрещены.</li>
+      <li>8.3. PvP только по взаимному согласию.</li>
+      <li>8.4. Нецензурная лексика в игровом чате запрещена.</li>
+      <li>8.5. Стройка рядом с чужими постройками только с разрешения владельца.</li>
+      <li>8.6. Неприемлемые конструкции (оскорбительные символы, объекты 18+) удаляются, автор наказывается.</li>
+    </ul>
+
+    <h4>9. Внешние коллабы и гости</h4>
+    <ul>
+      <li>9.1. Гости допускаются на сервер и в чат только с разрешения продакшн-директора.</li>
+      <li>9.2. Гость обязан соблюдать эти правила.</li>
+      <li>9.3. Внешние коллабы согласовываются с бренд-директором.</li>
+    </ul>
+
+    <h3>Часть IV: Нарушения и наказания</h3>
+
+    <h4>10. Система нарушений</h4>
+    <ul>
+      <li>10.1. Telegram-чат: Нарушение - Предупреждение - Мут - Бан.</li>
+      <li>10.2. Игровой сервер: Грубые нарушения (гриферство, читы, слив) - мгновенный бан.</li>
+      <li>10.3. Слив внутренней информации - исключение из команды без права возврата.</li>
+      <li>10.4. Срыв съёмок и системное бездействие - пересмотр роли вплоть до исключения.</li>
+      <li>10.5. Попытка обойти наказание через другие аккаунты - перманентный бан всех связанных аккаунтов.</li>
+    </ul>
+
+    <h4>11. Администрация и руководство</h4>
+    <ul>
+      <li>11.1. Руководство BTZProduction: Основатель, Продакшн-директор, Креатив-директор, Бренд-директор, Арт-директор, Лит-директор, Ня-директор.</li>
+      <li>11.2. Решения руководства окончательны и не подлежат публичному оспариванию. Несогласие обсуждается лично.</li>
+      <li>11.3. Правила могут дополняться и изменяться. Актуальная версия в этом документе.</li>
+      <li>11.4. Руководство может ограничить доступ к чатам, серверу или съёмкам, если поведение участника противоречит целям BTZProduction.</li>
+    </ul>
+
+    <h3>Часть V: Выход из команды</h3>
+
+    <h4>12. Уход</h4>
+    <ul>
+      <li>12.1. Участник может покинуть BTZProduction, предупредив руководство.</li>
+      <li>12.2. После ухода участник обязан вернуть доступы, если они были выданы.</li>
+      <li>12.3. Обязательства по конфиденциальности (п. 2) и правам на контент (п. 5) сохраняются после ухода.</li>
+    </ul>
+
+    <div class="rules-footer">
+      BTZProduction - это команда. Здесь не просто общаются, здесь делают контент. Уважай других, держи слово и делай своё дело хорошо.
+    </div>
+  </div>
+
+  <div class="roles-description-block">
+    <h2>Кто есть кто</h2>
+    <div class="roles-description-version">Роли и зоны ответственности</div>
+
+    <h3>Власть</h3>
+
+    <h4>Основатель</h4>
+    <p>BTZhora, Onlyyy43. Финальное слово. Определяет курс проекта, принимает ключевые решения, представляет BTZProduction. Может подключиться к любой задаче и взять её на себя.</p>
+
+    <h3>Креатив-команда</h3>
+
+    <div class="chain chain-creative">
+      <h4>Креатив-директор</h4>
+      <p>stfuhamorry. Главный по идеям. Придумывает концепции, форматы, сценарии. Следит, чтобы контент был свежим и в стиле BTZProduction. Ведёт креатив-команду, арт-команду и лит-команду.</p>
+
+      <h4>Сценарист</h4>
+      <p>Пишет сценарии, тексты, реплики, структуру видео. Превращает идеи креативщика в готовый план для съёмок.</p>
+
+      <h4>Креативщик</h4>
+      <p>Генерирует идеи, концепции, темы, тренды. Предлагает то, что ещё не делали, и задаёт направление для команды.</p>
+
+      <h4>Формат-мейкер</h4>
+      <p>Отвечает за форму и подачу: длина, ритм, структура, хук, как ролик выглядит на экране. Следит, чтобы контент цеплял с первых секунд.</p>
+      
+      <h4>Декоратор</h4>
+      <p>Строит локации, декорации и съёмочные площадки в Minecraft. Отвечает за визуальное оформление сцены и атмосферу в кадре.</p>
+    </div>
+
+    <h3>Арт-команда</h3>
+
+    <div class="chain chain-art">
+      <h4>Арт-директор</h4>
+      <p>the_pat4. Ведёт арт-команду. Следит за стилем, цветами и качеством визуала. Распределяет задачи между художниками, скетчерами и колористами. Согласовывает арты с креатив-директором и бренд-директором.</p>
+
+      <h4>Художник</h4>
+      <p>Рисует арты, иллюстрации, концепты, постеры. Отвечает за финальный визуал. Работает по идеям креатив-команды или приносит свои.</p>
+
+      <h4>3D-художник</h4>
+      <p>Создаёт 3D-модели, сцены, окружение, визуализации. Работает с объёмом, светом и материалами. Помогает с 3D-вставками для роликов и оформления.</p>
+
+      <h4>Скетчер</h4>
+      <p>Делает наброски, эскизы, быстрые концепты. Помогает художнику на этапе идеи. Может быстро показать, как будет выглядеть сцена или персонаж.</p>
+
+      <h4>Колорист</h4>
+      <p>Отвечает за цвет, свет и атмосферу артов. Дорабатывает работы художника, приводит их к единому стилю BTZProduction.</p>
+    </div>
+
+    <h3>Лит-команда</h3>
+
+    <div class="chain chain-lit">
+      <h4>Лит-директор</h4>
+      <p>sde_and_cherry_gh0. Ведёт лит-команду. Следит за сюжетами, стилем и качеством текстов. Распределяет задачи между писателями, редакторами и лор-мейкерами. Согласовывает тексты с креатив-директором.</p>
+
+      <h4>Писатель</h4>
+      <p>Пишет фанфики, истории, сюжеты, сценарии для артов. Создаёт текстовую основу проекта.</p>
+
+      <h4>Редактор</h4>
+      <p>Проверяет тексты: ошибки, стиль, логику, ритм. Приводит работы писателя к финальному виду.</p>
+
+      <h4>Лор-мейкер</h4>
+      <p>Создаёт лор, вселенную, каноны и правила мира BTZProduction. Следит, чтобы все тексты и арты не противоречили друг другу.</p>
+    </div>
+
+    <h3>Бренд-команда</h3>
+
+    <div class="chain chain-brand">
+      <h4>Бренд-директор</h4>
+      <p>HudArtem. Главный по имиджу и деньгам. Отвечает за бренд, партнёрства, монетизацию, спонсоров и визуал. Следит, как BTZProduction выглядит снаружи. Ведёт бренд-команду и Ня-команду.</p>
+
+      <h4>SMM-менеджер</h4>
+      <p>Ведёт соцсети: публикации, расписание, описания, хештеги, взаимодействие с аудиторией.</p>
+
+      <h4>Дизайнер</h4>
+      <p>Делает визуал: обложки, превью, баннеры, логотипы, оформление. Отвечает за то, как контент выглядит.</p>
+
+      <h4>Аналитик</h4>
+      <p>Смотрит цифры: охваты, просмотры, вовлечённость. Говорит, что работает, а что нет. Помогает принимать решения на основе данных.</p>
+    </div>
+
+    <h3>Ня-команда</h3>
+
+    <div class="chain chain-ny">
+      <h4>Ня-директор</h4>
+      <p>theburabakara. Ведёт Ня-команду. Подчиняется бренд-директору. Решает, кто и где появляется, следит за образом и подачей, согласовывает выходы персон. Отвечает за то, чтобы Ня-команда работала на хайп, а не во вред репутации.</p>
+
+      <h4>Фембой</h4>
+      <p>Милый мальчик с женственными чертами. Обаяние, стиль, эстетика. Работает на аудиторию, которая ценит такой образ.</p>
+
+      <h4>Кошкодевочка</h4>
+      <p>Неко-тян: ушки, хвостик, «ня»-стиль. Милота и игривость. Часто используется для мемных и милых роликов.</p>
+
+      <h4>Тянка</h4>
+      <p>Женственная персона с вайбом «тян». Кокетство, забота, мягкая подача. Работает на аудиторию, которая любит такой образ.</p>
+
+      <h4>Бойкиссер</h4>
+      <p>Милый мальчик-котик с вайбом «boykisser». Обаяние, игривость, мемность. Работает на аудиторию, которая любит такой образ.</p>
+    </div>
+
+    <h3>Продакшн-команда</h3>
+
+    <div class="chain chain-production">
+      <h4>Продакшн-директор</h4>
+      <p>albibekk. Главный по производству. Отвечает за съёмки, монтаж, график выхода контента и качество. Следит, чтобы всё доходило до финала. Распределяет задачи внутри продакшн-команды.</p>
+
+      <h4>Режиссёр</h4>
+      <p>Ставит кадр, работает с актёрами на площадке, следит за сценарием во время съёмки. Главный на съёмках.</p>
+
+      <h4>Оператор</h4>
+      <p>Снимает: камера, ракурсы, движение, картинка. Отвечает за то, как всё выглядит в кадре.</p>
+
+      <h4>Монтажёр</h4>
+      <p>Собирает видео: склейки, ритм, эффекты, субтитры, звук. Превращает сырой материал в готовый ролик.</p>
+
+      <h4>Звукорежиссёр</h4>
+      <p>Отвечает за звук: музыка, звуковые эффекты, чистота голоса, баланс. Следит, чтобы всё звучало хорошо.</p>
+    </div>
+
+    <h3>В кадре</h3>
+
+    <div class="chain chain-actors">
+      <h4>Актёр / Участник</h4>
+      <p>Находится в кадре. Играет, шутит, участвует в съёмках. Лицо проекта.</p>
+
+      <h4>Спонсор</h4>
+      <p>Поддерживает проект финансово или ресурсами. Помогает BTZProduction расти и выпускать контент.</p>
+    </div>
+  </div>
+
+  <footer>BTZ - BTZProduction</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Secrets
+.env
+.env.local
+*.token
+
+# Bot runtime
+__pycache__/
+*.pyc
+data.json.broken
+roles_ids.txt
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
