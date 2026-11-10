@@ -680,7 +680,7 @@
 (function () {
   'use strict';
 
-  var DATA_URL = 'data.json';
+  var DATA_URL = 'https://btzproduction-backend.onrender.com/api/data';
   var REFRESH_MS = 30000;
 
   var DIRECTOR_ORDER = ['owner', 'general', 'production', 'creative', 'brand', 'art', 'lit', 'nya'];
@@ -1423,7 +1423,7 @@
         return;
       }
 
-      fetch('/create-payment', {
+      fetch('https://btzproduction-backend.onrender.com/create-payment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -1464,9 +1464,7 @@
   console.log('🫧 Мой clientId:', clientId);
 
   function connectWS() {
-    var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    var host = window.location.hostname || 'localhost';
-    var wsUrl = protocol + '//' + host + ':8765';
+    var wsUrl = 'wss://btzproduction-backend.onrender.com/ws';
     
     console.log('🫧 Подключение к WebSocket:', wsUrl);
     ws = new WebSocket(wsUrl);
