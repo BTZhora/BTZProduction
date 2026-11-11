@@ -376,6 +376,29 @@
   }
 
   
+  #loading-indicator {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  #loading-indicator .spinner {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(216, 194, 255, 0.3);
+    border-top-color: var(--pink);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 12px;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  
   .modal-overlay {
     position: fixed; inset: 0; z-index: 1000;
     background: rgba(15, 15, 19, 0.85);
@@ -546,6 +569,10 @@
       </section>
 
       <section class="tab-panel" id="tab-members">
+        <div id="loading-indicator">
+          <div class="spinner"></div>
+          <div>Идёт прогрузка...</div>
+        </div>
         <div class="directors-block">
           <div class="level-title">Директора</div>
           <div id="directors-grid" class="directors-grid directors-grid-all"></div>
@@ -1253,7 +1280,29 @@
     renderTeams();
   }
 
+  function showLoading(isInitial) {
+    var loader = document.getElementById('loading-indicator');
+    if (loader) loader.style.display = 'block';
+    if (isInitial) {
+      if (directorsGrid) {
+        directorsGrid.innerHTML = '';
+        directorsGrid.removeAttribute('data-error');
+      }
+      if (teamsGrid) {
+        teamsGrid.innerHTML = '';
+        teamsGrid.removeAttribute('data-error');
+        teamsBuilt = false;
+      }
+    }
+  }
+
+  function hideLoading() {
+    var loader = document.getElementById('loading-indicator');
+    if (loader) loader.style.display = 'none';
+  }
+
   function loadData(isInitial) {
+    showLoading(isInitial);
     return fetch(DATA_URL, { cache: 'no-store' })
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -1263,10 +1312,11 @@
         currentData = data;
         lastJsonString = JSON.stringify(data);
         renderAll();
-        
+        hideLoading();
       })
       .catch(function (err) {
         console.error('BTZProduction: не удалось загрузить data.json', err);
+        hideLoading();
         showError(
           'Не удалось загрузить data.json. Откройте страницу через локальный сервер ' +
           '(например, VS Code Live Server) — при открытии через file:// не работает.'
@@ -1299,6 +1349,9 @@
   }
 
   function pollData() {
+    var loader = document.getElementById('loading-indicator');
+    if (loader) loader.style.display = 'block';
+
     fetch(DATA_URL, { cache: 'no-store' })
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -1307,7 +1360,7 @@
       .then(function (data) {
         var str = JSON.stringify(data);
         if (str === lastJsonString) {
-          
+          hideLoading();
           return;
         }
 
@@ -1324,9 +1377,11 @@
         } else {
           renderAll();
         }
+        hideLoading();
       })
       .catch(function (err) {
         console.error('BTZProduction: ошибка автообновления data.json', err);
+        hideLoading();
       });
   }
 
