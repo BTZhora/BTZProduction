@@ -586,6 +586,87 @@
   }
 
   
+  .timeline-block {
+    background: linear-gradient(135deg, rgba(255,209,220,0.08), rgba(216,194,255,0.08), rgba(194,255,216,0.08));
+    border: 1px solid rgba(216,194,255,0.18); border-radius: var(--radius);
+    padding: 24px; margin-bottom: 24px;
+  }
+  .timeline-container {
+    position: relative;
+    padding: 20px 0;
+  }
+  .timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #d8c2ff, rgba(216,194,255,0.3));
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px rgba(216,194,255,0.5);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+  }
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+  .timeline-item:nth-child(odd) {
+    justify-content: flex-start;
+    padding-right: calc(50% + 30px);
+  }
+  .timeline-item:nth-child(even) {
+    justify-content: flex-end;
+    padding-left: calc(50% + 30px);
+  }
+  .timeline-dot {
+    position: absolute;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    background: #d8c2ff;
+    border: 3px solid #0f0f13;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px rgba(216,194,255,0.6);
+    z-index: 2;
+  }
+  .timeline-card {
+    background: rgba(15,15,19,0.7);
+    border: 1px solid rgba(216,194,255,0.2);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .timeline-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(216,194,255,0.4);
+    box-shadow: 0 6px 20px rgba(216,194,255,0.2);
+  }
+  .timeline-date {
+    font-size: 0.7rem;
+    color: var(--text-mute);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .timeline-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .timeline-description {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  
   @media (max-width: 900px) {
     .directors-grid-all { grid-template-columns: repeat(2, 1fr); }
     .teams-grid { grid-template-columns: 1fr; }
@@ -594,11 +675,25 @@
     body { padding: 24px 14px; }
     .tab-header { padding: 6px 8px; gap: 0; }
     .tab-btn { padding: 10px 12px; font-size: 0.72rem; }
-    .about-block, .directors-block, .rules-block, .team-block { padding: 18px; }
+    .about-block, .directors-block, .rules-block, .team-block, .timeline-block { padding: 18px; }
     .director-card { padding: 12px 14px; }
     .director-card .role-name { font-size: 0.8rem; }
     .team-title { font-size: 0.9rem; }
     .directors-grid-all { grid-template-columns: 1fr; }
+    .timeline-container::before {
+      left: 20px;
+      transform: none;
+    }
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+      justify-content: flex-start;
+      padding-left: 50px;
+      padding-right: 0;
+    }
+    .timeline-dot {
+      left: 20px;
+      transform: translateX(-50%);
+    }
   }
 </style>
 </head>
@@ -645,6 +740,11 @@
           <div class="about-cta-row">
             <button type="button" class="about-cta" data-goto-tab="join">Как вступить?</button>
           </div>
+        </div>
+
+        <div class="timeline-block">
+          <div class="about-title">История проекта</div>
+          <div class="timeline-container" id="timeline-container"></div>
         </div>
       </section>
 
@@ -1535,9 +1635,60 @@
     if (target) showTab(target);
   });
 
+  
+  function loadTimeline() {
+    var container = document.getElementById('timeline-container');
+    if (!container) return;
+
+    fetch('timeline.json')
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function(events) {
+        container.innerHTML = '';
+        events.forEach(function(event, index) {
+          var item = document.createElement('div');
+          item.className = 'timeline-item';
+
+          var dot = document.createElement('div');
+          dot.className = 'timeline-dot';
+          item.appendChild(dot);
+
+          var card = document.createElement('div');
+          card.className = 'timeline-card';
+
+          var dateEl = document.createElement('div');
+          dateEl.className = 'timeline-date';
+          dateEl.textContent = event.date || '';
+          card.appendChild(dateEl);
+
+          var titleEl = document.createElement('div');
+          titleEl.className = 'timeline-title';
+          titleEl.textContent = event.title || '';
+          card.appendChild(titleEl);
+
+          if (event.description) {
+            var descEl = document.createElement('div');
+            descEl.className = 'timeline-description';
+            descEl.textContent = event.description;
+            card.appendChild(descEl);
+          }
+
+          item.appendChild(card);
+          container.appendChild(item);
+        });
+      })
+      .catch(function(err) {
+        console.error('BTZProduction: не удалось загрузить timeline.json', err);
+        container.innerHTML = '<p style="color: var(--text-mute); font-size: 0.85rem;">История проекта временно недоступна.</p>';
+      });
+  }
+
   updateDate();
   showTab(activeTab); 
   loadData(true);
+  loadTimeline();
 
   setInterval(function () {
     updateDate();
