@@ -6,8 +6,8 @@
 <title>BTZProduction — Personal List</title>
 <meta name="description" content="BTZProduction — закрытая команда по созданию контента: Minecraft, TikTok, Reels, Shorts, арты, фанфики и коллабы. Состав команды, правила и как вступить." />
 <meta name="theme-color" content="#0f0f13" />
-<link rel="icon" type="image/png" href="icon.png" />
-<link rel="apple-touch-icon" href="icon.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="icon.png" />
+<link rel="apple-touch-icon" sizes="512x512" href="icon.png" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="BTZProduction — Personal List" />
 <meta property="og:description" content="Закрытая продакшн-команда: состав, правила и как вступить." />
@@ -135,6 +135,34 @@
       justify-content: center;
     }
   }
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .site-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(216, 194, 255, 0.4);
+    box-shadow: 0 0 16px rgba(216, 194, 255, 0.25), 0 2px 8px rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
+    object-fit: cover;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .site-icon:hover {
+    box-shadow: 0 0 24px rgba(216, 194, 255, 0.45), 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+  }
+  @media (max-width: 640px) {
+    .site-icon {
+      width: 34px;
+      height: 34px;
+      border-width: 1.5px;
+    }
+    .brand-logo { gap: 8px; }
+  }
+
   header h1 {
     font-size: clamp(1.9rem, 6vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em;
     background: linear-gradient(135deg, var(--pink), var(--lilac), var(--mint));
@@ -578,7 +606,10 @@
   <div class="container">
     <header>
       <div class="header-left">
-        <h1>BTZProduction</h1>
+        <div class="brand-logo">
+          <img src="icon.png" alt="BTZ Logo" class="site-icon" width="48" height="48" loading="eager" />
+          <h1>BTZProduction</h1>
+        </div>
         <div class="subtitle">Personal List</div>
         <div class="date" id="date-el"></div>
       </div>
