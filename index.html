@@ -1303,8 +1303,12 @@
 
   function loadData(isInitial) {
     showLoading(isInitial);
-    return fetch(DATA_URL, { cache: 'no-store' })
+    var controller = new AbortController();
+    var timeoutId = setTimeout(function () { controller.abort(); }, 60000);
+
+    return fetch(DATA_URL, { cache: 'no-store', signal: controller.signal })
       .then(function (res) {
+        clearTimeout(timeoutId);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
@@ -1315,12 +1319,17 @@
         hideLoading();
       })
       .catch(function (err) {
+        clearTimeout(timeoutId);
         console.error('BTZProduction: не удалось загрузить data.json', err);
         hideLoading();
-        showError(
-          'Не удалось загрузить data.json. Откройте страницу через локальный сервер ' +
-          '(например, VS Code Live Server) — при открытии через file:// не работает.'
-        );
+        if (err.name === 'AbortError') {
+          showError('Сервер не отвечает. Попробуйте позже.');
+        } else {
+          showError(
+            'Не удалось загрузить data.json. Откройте страницу через локальный сервер ' +
+            '(например, VS Code Live Server) — при открытии через file:// не работает.'
+          );
+        }
         if (isInitial && dateEl) updateDate();
       });
   }
@@ -1352,8 +1361,12 @@
     var loader = document.getElementById('loading-indicator');
     if (loader) loader.style.display = 'block';
 
-    fetch(DATA_URL, { cache: 'no-store' })
+    var controller = new AbortController();
+    var timeoutId = setTimeout(function () { controller.abort(); }, 60000);
+
+    fetch(DATA_URL, { cache: 'no-store', signal: controller.signal })
       .then(function (res) {
+        clearTimeout(timeoutId);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
@@ -1380,8 +1393,12 @@
         hideLoading();
       })
       .catch(function (err) {
+        clearTimeout(timeoutId);
         console.error('BTZProduction: ошибка автообновления data.json', err);
         hideLoading();
+        if (err.name === 'AbortError') {
+          showError('Сервер не отвечает. Попробуйте позже.');
+        }
       });
   }
 
