@@ -1658,6 +1658,14 @@
           var card = document.createElement('div');
           card.className = 'timeline-card';
 
+          if (event.image) {
+            var imgEl = document.createElement('img');
+            imgEl.src = event.image;
+            imgEl.alt = event.title || 'Фото события';
+            imgEl.className = 'timeline-image';
+            card.appendChild(imgEl);
+          }
+
           var dateEl = document.createElement('div');
           dateEl.className = 'timeline-date';
           dateEl.textContent = event.date || '';
