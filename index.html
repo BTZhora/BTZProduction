@@ -4,6 +4,20 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BTZProduction — Personal List</title>
+<meta name="description" content="BTZProduction — закрытая команда по созданию контента: Minecraft, TikTok, Reels, Shorts, арты, фанфики и коллабы. Состав команды, правила и как вступить." />
+<meta name="theme-color" content="#0f0f13" />
+<link rel="icon" type="image/png" href="icon.png" />
+<link rel="apple-touch-icon" href="icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="BTZProduction — Personal List" />
+<meta property="og:description" content="Закрытая продакшн-команда: состав, правила и как вступить." />
+<meta property="og:image" content="icon.png" />
+<noscript>
+  <style>
+    .tab-panel { display: block !important; margin-bottom: 24px; }
+    #loading-indicator, .support-btn { display: none !important; }
+  </style>
+</noscript>
 <style>
   
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -399,6 +413,37 @@
   }
 
   
+  .retry-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid  rgba(255, 154, 162, 0.4);
+    background:  rgba(15, 15, 19, 0.6);
+    color:  #ff9aa2;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease, transform .15s ease;
+  }
+  .retry-btn:hover { background:  rgba(15, 15, 19, 0.9); border-color:  #ff9aa2; transform: translateY(-1px); }
+  .retry-btn:focus-visible { outline: 2px solid  #ff9aa2; outline-offset: 2px; }
+
+  
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,  rgba(255, 209, 220, 0.4),  rgba(216, 194, 255, 0.4));
+    border-radius: 6px;
+    border: 2px solid var(--bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg,  rgba(255, 209, 220, 0.7),  rgba(216, 194, 255, 0.7));
+  }
+  html { scrollbar-width: thin; scrollbar-color:  rgba(216, 194, 255, 0.4) var(--bg); }
+
+  
   .modal-overlay {
     position: fixed; inset: 0; z-index: 1000;
     background: rgba(15, 15, 19, 0.85);
@@ -540,15 +585,19 @@
       <a href="#" class="support-btn">💖 Поддержать проект</a>
     </header>
 
-    <nav class="tab-header" id="tab-header">
-      <button class="tab-btn active" type="button" data-tab="about">О проекте</button>
-      <button class="tab-btn" type="button" data-tab="members">Состав</button>
-      <button class="tab-btn" type="button" data-tab="rules">Правила</button>
-      <button class="tab-btn" type="button" data-tab="join">Как вступить</button>
+    <noscript>
+      <div class="load-error">Для загрузки состава команды включите JavaScript. Остальные разделы доступны ниже.</div>
+    </noscript>
+
+    <nav class="tab-header" id="tab-header" role="tablist" aria-label="Разделы сайта">
+      <button class="tab-btn active" type="button" data-tab="about" id="tabbtn-about" role="tab" aria-selected="true" aria-controls="tab-about">О проекте</button>
+      <button class="tab-btn" type="button" data-tab="members" id="tabbtn-members" role="tab" aria-selected="false" aria-controls="tab-members" tabindex="-1">Состав</button>
+      <button class="tab-btn" type="button" data-tab="rules" id="tabbtn-rules" role="tab" aria-selected="false" aria-controls="tab-rules" tabindex="-1">Правила</button>
+      <button class="tab-btn" type="button" data-tab="join" id="tabbtn-join" role="tab" aria-selected="false" aria-controls="tab-join" tabindex="-1">Как вступить</button>
     </nav>
 
     <main id="tab-content">
-      <section class="tab-panel active" id="tab-about">
+      <section class="tab-panel active" id="tab-about" role="tabpanel" aria-labelledby="tabbtn-about">
         <div class="about-block">
           <div class="about-title">О проекте</div>
           <p class="about-lead">BTZProduction — закрытая команда по созданию контента: моменты с игр, TikTok, Reels, Shorts, арты, фанфики и коллабы.</p>
@@ -568,7 +617,7 @@
         </div>
       </section>
 
-      <section class="tab-panel" id="tab-members">
+      <section class="tab-panel" id="tab-members" role="tabpanel" aria-labelledby="tabbtn-members">
         <div id="loading-indicator">
           <div class="spinner"></div>
           <div>Идёт прогрузка...</div>
@@ -580,7 +629,7 @@
         <div class="teams-grid" id="teams-grid"></div>
       </section>
 
-      <section class="tab-panel" id="tab-rules">
+      <section class="tab-panel" id="tab-rules" role="tabpanel" aria-labelledby="tabbtn-rules">
         <div class="rules-block">
           <h2>Правила BTZProduction</h2>
           <div class="rules-version">Версия от 07.11.2026</div>
@@ -671,7 +720,7 @@
         </div>
       </section>
 
-      <section class="tab-panel" id="tab-join">
+      <section class="tab-panel" id="tab-join" role="tabpanel" aria-labelledby="tabbtn-join">
         <div class="join-block">
           <div class="join-title">Как вступить</div>
           <p>BTZProduction — закрытая команда. Мы не набираем всех подряд: смотрим на мотивацию, навык и адекватность. Отбор проходит в несколько этапов.</p>
@@ -692,12 +741,12 @@
   </div>
 
   
-  <div class="modal-overlay" id="donation-modal">
+  <div class="modal-overlay" id="donation-modal" role="dialog" aria-modal="true" aria-labelledby="donation-title" aria-describedby="donation-desc" aria-hidden="true">
     <div class="modal-box">
       <button class="modal-close" id="modal-close-btn" aria-label="Закрыть">&times;</button>
-      <div class="modal-title">💖 Поддержать проект</div>
-      <div class="modal-desc">Минимальная сумма пожертвования — 50 ₽</div>
-      <input type="number" class="donation-input" id="donation-amount" placeholder="Введите сумму" min="50" step="10" />
+      <div class="modal-title" id="donation-title">💖 Поддержать проект</div>
+      <div class="modal-desc" id="donation-desc">Минимальная сумма пожертвования — 50 ₽</div>
+      <input type="number" class="donation-input" id="donation-amount" placeholder="Введите сумму" min="50" step="10" aria-label="Сумма пожертвования в рублях" />
       <div class="donation-error" id="donation-error"></div>
       <button class="donation-submit" id="donation-submit-btn">Отправить</button>
     </div>
@@ -880,6 +929,7 @@
   }
 
   var VALID_STATUSES = ['online', 'idle', 'dnd', 'offline'];
+  var STATUS_LABELS = { online: 'В сети', idle: 'Не активен', dnd: 'Не беспокоить', offline: 'Не в сети' };
 
   function normalizeStatus(status) {
     var s = String(status || 'offline').toLowerCase();
@@ -895,9 +945,12 @@
   }
 
   function makeStatusDot(status) {
+    var s = normalizeStatus(status);
     var dot = document.createElement('span');
-    dot.className = 'status-dot status-' + normalizeStatus(status);
-    dot.setAttribute('aria-hidden', 'true');
+    dot.className = 'status-dot status-' + s;
+    dot.setAttribute('role', 'img');
+    dot.setAttribute('aria-label', STATUS_LABELS[s] || s);
+    dot.title = STATUS_LABELS[s] || s;
     return dot;
   }
 
@@ -916,13 +969,17 @@
       panel.classList.toggle('active', panel.id === 'tab-' + tabId);
     });
     tabBtns.forEach(function (btn) {
-      btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+      var isActive = btn.getAttribute('data-tab') === tabId;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      btn.tabIndex = isActive ? 0 : -1;
     });
     try { window.localStorage.setItem(TAB_STORAGE_KEY, tabId); } catch (e) {  }
   }
 
   function showError(message) {
-    var box = '<div class="load-error">' + esc(message) + '</div>';
+    var box = '<div class="load-error">' + esc(message) +
+      '<br><button type="button" class="retry-btn">Попробовать снова</button></div>';
     if (directorsGrid) {
       directorsGrid.innerHTML = box;
       directorsGrid.setAttribute('data-error', '1');
@@ -969,6 +1026,12 @@
       }
     });
     if (!dot.classList.contains(cls)) dot.classList.add(cls);
+    var label = STATUS_LABELS[normalizeStatus(status)] || '';
+    if (dot.getAttribute('aria-label') !== label) {
+      dot.setAttribute('role', 'img');
+      dot.setAttribute('aria-label', label);
+      dot.title = label;
+    }
   }
 
   
@@ -1409,6 +1472,31 @@
   });
 
   
+  var tabHeaderEl = document.getElementById('tab-header');
+  if (tabHeaderEl) {
+    tabHeaderEl.addEventListener('keydown', function (e) {
+      var idx = VALID_TABS.indexOf(activeTab);
+      var nextIdx = null;
+      if (e.key === 'ArrowRight') nextIdx = (idx + 1) % VALID_TABS.length;
+      else if (e.key === 'ArrowLeft') nextIdx = (idx - 1 + VALID_TABS.length) % VALID_TABS.length;
+      else if (e.key === 'Home') nextIdx = 0;
+      else if (e.key === 'End') nextIdx = VALID_TABS.length - 1;
+      if (nextIdx === null) return;
+      e.preventDefault();
+      showTab(VALID_TABS[nextIdx]);
+      var nextBtn = document.getElementById('tabbtn-' + VALID_TABS[nextIdx]);
+      if (nextBtn) nextBtn.focus();
+    });
+  }
+
+  
+  document.addEventListener('click', function (e) {
+    var retry = e.target && e.target.closest ? e.target.closest('.retry-btn') : null;
+    if (!retry) return;
+    loadData(true);
+  });
+
+  
   document.addEventListener('click', function (e) {
     var trigger = e.target && e.target.closest ? e.target.closest('[data-goto-tab]') : null;
     if (!trigger) return;
@@ -1433,11 +1521,18 @@
   var submitBtn = document.getElementById('donation-submit-btn');
   var errorEl = document.getElementById('donation-error');
 
+  var lastFocusedEl = null;
+
   function openModal() {
     if (modal) {
+      lastFocusedEl = document.activeElement;
       modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
       amountInput.value = '';
       errorEl.textContent = '';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Отправить';
       setTimeout(function() { amountInput.focus(); }, 100);
     }
   }
@@ -1445,8 +1540,35 @@
   function closeModal() {
     if (modal) {
       modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocusedEl && lastFocusedEl.focus) lastFocusedEl.focus();
     }
   }
+
+  
+  document.addEventListener('keydown', function (e) {
+    if (!modal || !modal.classList.contains('active')) return;
+    if (e.key === 'Escape') {
+      closeModal();
+      return;
+    }
+    if (e.key === 'Tab') {
+      var focusables = [closeBtn, amountInput, submitBtn].filter(function (el) {
+        return el && !el.disabled;
+      });
+      if (!focusables.length) return;
+      var first = focusables[0];
+      var last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
 
   if (supportBtn) {
     supportBtn.addEventListener('click', function(e) {
@@ -1478,8 +1600,12 @@
   if (submitBtn) {
     submitBtn.addEventListener('click', function() {
       var amount = parseFloat(amountInput.value);
-      if (!amount || amount < 50) {
+      if (!isFinite(amount) || amount < 50) {
         errorEl.textContent = 'Минимальная сумма пожертвования — 50 ₽';
+        return;
+      }
+      if (amount > 100000) {
+        errorEl.textContent = 'Максимальная сумма пожертвования — 100 000 ₽';
         return;
       }
 
@@ -1489,20 +1615,25 @@
 
       
       if (window.location.protocol === 'file:') {
-        errorEl.textContent = '⚠️ Сайт открыт как файл. Запустите сервер (python run.py) и откройте http://localhost:8080';
+        errorEl.textContent = '⚠️ Сайт открыт как файл. Откройте страницу через локальный сервер или опубликованный сайт.';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Отправить';
         return;
       }
+
+      var payController = new AbortController();
+      var payTimeoutId = setTimeout(function () { payController.abort(); }, 60000);
 
       fetch('https://btzproduction-backend.onrender.com/create-payment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ amount: amount })
+        body: JSON.stringify({ amount: amount }),
+        signal: payController.signal
       })
       .then(function(response) {
+        clearTimeout(payTimeoutId);
         if (!response.ok) {
           throw new Error('HTTP ' + response.status);
         }
@@ -1522,8 +1653,11 @@
         }
       })
       .catch(function(err) {
+        clearTimeout(payTimeoutId);
         console.error('Ошибка платежа:', err);
-        errorEl.textContent = 'Ошибка сети. Убедитесь, что сервер запущен (python run.py).';
+        errorEl.textContent = err.name === 'AbortError'
+          ? 'Сервер не отвечает. Попробуйте ещё раз через минуту.'
+          : 'Не удалось связаться с сервером платежей. Попробуйте позже.';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Отправить';
       });
@@ -1532,72 +1666,92 @@
 
   
   var ws = null;
-  var clientId = 'client_' + Math.random().toString(36).substr(2, 9);
-  console.log('🫧 Мой clientId:', clientId);
+  var wsRetryDelay = 3000;
+  var WS_MAX_DELAY = 60000;
+  var MAX_POPS = 40;
+  var clientId = 'client_' + Math.random().toString(36).slice(2, 11);
+  var reduceMotion = false;
+  try {
+    reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch (e) { reduceMotion = false; }
 
   function connectWS() {
-    var wsUrl = 'wss://btzproduction-backend.onrender.com/ws';
-    
-    console.log('🫧 Подключение к WebSocket:', wsUrl);
-    ws = new WebSocket(wsUrl);
-    
-    ws.onopen = function() {
-      console.log('✅ WebSocket подключен');
-      ws.send(JSON.stringify({ type: 'init', id: clientId }));
+    if (!('WebSocket' in window)) return;
+    if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+
+    var socket;
+    try {
+      socket = new WebSocket('wss://btzproduction-backend.onrender.com/ws');
+    } catch (e) {
+      setTimeout(connectWS, wsRetryDelay);
+      wsRetryDelay = Math.min(wsRetryDelay * 2, WS_MAX_DELAY);
+      return;
+    }
+    ws = socket;
+
+    socket.onopen = function() {
+      wsRetryDelay = 3000;
+      try { socket.send(JSON.stringify({ type: 'init', id: clientId })); } catch (e) {  }
     };
-    
-    ws.onmessage = function(event) {
-      console.log('📩 Получено сообщение:', event.data);
+
+    socket.onmessage = function(event) {
       try {
         var data = JSON.parse(event.data);
-        if (data.type === 'pop') {
-          console.log('🫧 Создаю эффект от другого клиента:', data.x, data.y);
+        if (data && data.type === 'pop') {
           createPopEffect(data.x, data.y);
         }
-      } catch (e) {
-        console.error('WS parse error', e);
-      }
+      } catch (e) {  }
     };
-    
-    ws.onclose = function() {
-      console.log('🫧 WebSocket отключен, переподключение через 3с...');
-      setTimeout(connectWS, 3000);
+
+    socket.onclose = function() {
+      if (ws === socket) ws = null;
+      setTimeout(connectWS, wsRetryDelay);
+      wsRetryDelay = Math.min(wsRetryDelay * 2, WS_MAX_DELAY);
     };
-    
-    ws.onerror = function(err) {
-      console.error('❌ WebSocket ошибка:', err);
-    };
+
+    socket.onerror = function() {  };
   }
 
   function createPopEffect(x, y) {
+    if (reduceMotion) return;
+    var px = Number(x);
+    var py = Number(y);
+    if (!isFinite(px) || !isFinite(py)) return;
+    px = Math.max(0, Math.min(px, window.innerWidth));
+    py = Math.max(0, Math.min(py, window.innerHeight));
+
+    
+    var existing = document.querySelectorAll('.pop-effect');
+    if (existing.length >= MAX_POPS) {
+      var oldest = existing[0];
+      if (oldest.parentNode) oldest.parentNode.removeChild(oldest);
+    }
+
     var pop = document.createElement('div');
     pop.className = 'pop-effect';
-    pop.style.left = x + 'px';
-    pop.style.top = y + 'px';
+    pop.style.left = px + 'px';
+    pop.style.top = py + 'px';
     document.body.appendChild(pop);
-    
+
     setTimeout(function() {
       if (pop.parentNode) {
         pop.parentNode.removeChild(pop);
       }
-    }, 600);
+    }, 700);
   }
 
   document.addEventListener('click', function(e) {
-    console.log('🖱️ Клик в координатах:', e.clientX, e.clientY);
     createPopEffect(e.clientX, e.clientY);
-    
+
     if (ws && ws.readyState === WebSocket.OPEN) {
-      var msg = {
-        type: 'pop',
-        x: e.clientX,
-        y: e.clientY,
-        clientId: clientId
-      };
-      console.log('📤 Отправляю клик другим клиентам:', msg);
-      ws.send(JSON.stringify(msg));
-    } else {
-      console.warn('⚠️ WebSocket не подключен, клик не отправлен');
+      try {
+        ws.send(JSON.stringify({
+          type: 'pop',
+          x: e.clientX,
+          y: e.clientY,
+          clientId: clientId
+        }));
+      } catch (err) {  }
     }
   });
 
