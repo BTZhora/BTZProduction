@@ -743,16 +743,69 @@
     margin-top: 12px;
   }
 
+  .partners-block {
+    background: linear-gradient(135deg, rgba(255,209,220,0.08), rgba(216,194,255,0.08), rgba(194,255,216,0.08));
+    border: 1px solid rgba(216,194,255,0.18); border-radius: var(--radius);
+    padding: 24px; margin-bottom: 24px;
+  }
+  .partners-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .partner-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 24px;
+    border-radius: 12px;
+    background: rgba(15, 15, 19, 0.6);
+    border: 1px solid rgba(216, 194, 255, 0.2);
+    text-decoration: none;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .partner-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 209, 220, 0.5);
+    box-shadow: 0 6px 20px rgba(216, 194, 255, 0.2);
+  }
+  .partner-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    background: linear-gradient(135deg, var(--pink), var(--lilac));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .partner-btn {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: rgba(216, 194, 255, 0.1);
+    border: 1px solid rgba(216, 194, 255, 0.3);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .partner-card:hover .partner-btn {
+    background: linear-gradient(135deg, var(--pink), var(--lilac));
+    color: #0f0f13;
+    border-color: transparent;
+  }
+
   
   @media (max-width: 900px) {
     .directors-grid-all { grid-template-columns: repeat(2, 1fr); }
     .teams-grid { grid-template-columns: 1fr; }
   }
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     body { padding: 24px 14px; }
     .tab-header { padding: 6px 8px; gap: 0; }
     .tab-btn { padding: 10px 12px; font-size: 0.72rem; }
-    .about-block, .directors-block, .rules-block, .team-block, .timeline-block { padding: 18px; }
+    .about-block, .directors-block, .rules-block, .team-block, .timeline-block, .partners-block { padding: 18px; }
     .director-card { padding: 12px 14px; }
     .director-card .role-name { font-size: 0.8rem; }
     .team-title { font-size: 0.9rem; }
@@ -786,15 +839,6 @@
 </style>
 </head>
 <body>
-  <div id="art-sidebar">
-    <div class="art-sidebar-card">
-      <div class="art-sidebar-title">Рандомный арт от команды</div>
-      <div class="art-container" id="art-container">
-        <div class="art-loading">Загрузка...</div>
-      </div>
-    </div>
-  </div>
-
   <div class="container">
     <header>
       <div class="header-left">
@@ -842,6 +886,16 @@
         <div class="timeline-block">
           <div class="about-title">История проекта</div>
           <div class="timeline-container" id="timeline-container"></div>
+        </div>
+
+        <div class="partners-block">
+          <div class="about-title">Наши партнеры</div>
+          <div class="partners-grid">
+            <a href="https://site.relaywatch.duckdns.org/" target="_blank" rel="noopener noreferrer" class="partner-card">
+              <div class="partner-name">Relay Watch</div>
+              <div class="partner-btn">Перейти на сайт →</div>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -964,6 +1018,15 @@
         </div>
       </section>
     </main>
+
+    <div id="art-sidebar">
+      <div class="art-sidebar-card">
+        <div class="art-sidebar-title">Рандомный арт от команды</div>
+        <div class="art-container" id="art-container">
+          <div class="art-loading">Загрузка...</div>
+        </div>
+      </div>
+    </div>
 
     <footer>© 2026 BTZProduction</footer>
   </div>
