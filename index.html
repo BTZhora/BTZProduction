@@ -176,25 +176,48 @@
 
   
   .tab-header {
-    display: flex; gap: 2px;
-    background: linear-gradient(135deg, rgba(255,209,220,0.3), rgba(216,194,255,0.3), rgba(194,255,216,0.3));
-    border: 1px solid rgba(216,194,255,0.4); border-radius: 16px;
-    padding: 8px 12px; margin-bottom: 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    gap: 8px;
+    background: rgba(15, 15, 19, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 8px 12px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
   .tab-btn {
-    flex: 1; padding: 14px 24px; border: none; border-radius: 12px;
-    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    color: #7a7a85; background: rgba(15,15,19,0.5); cursor: pointer; font-family: inherit;
-    transition: color .2s ease, background .2s ease, transform .2s ease, box-shadow .2s ease;
+    flex: 1;
+    padding: 14px 24px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7a7a85;
+    background: rgba(15, 15, 19, 0.4);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.3s ease;
   }
   .tab-btn:hover {
-    color: var(--text); background: rgba(15,15,19,0.7); transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255,184,216,0.2);
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
   }
   .tab-btn.active,
   .tab-btn.active:hover {
-    color: #0f0f13; background: linear-gradient(135deg, var(--pink), var(--lilac));
-    box-shadow: 0 4px 18px rgba(216,194,255,0.45); transform: none;
+    color: #0f0f13;
+    background: linear-gradient(135deg, var(--pink), var(--lilac));
+    border-color: transparent;
+    box-shadow: 0 4px 20px rgba(216, 194, 255, 0.4);
+    transform: none;
     font-weight: 700;
   }
   .tab-btn:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
@@ -208,10 +231,42 @@
   }
 
   
+  
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .bento-item {
+    background: rgba(20, 20, 26, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .bento-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(216, 194, 255, 0.15);
+    border-color: rgba(216, 194, 255, 0.3);
+  }
+  .bento-item-wide { grid-column: span 2; }
+  .bento-item-full { grid-column: span 3; }
+
   .about-block {
-    background: linear-gradient(135deg, rgba(255,209,220,0.08), rgba(216,194,255,0.08), rgba(194,255,216,0.08));
-    border: 1px solid rgba(216,194,255,0.18); border-radius: var(--radius);
-    padding: 24px; margin-bottom: 24px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+  .about-block:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: transparent;
   }
   .about-title {
     font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
@@ -588,20 +643,24 @@
   
   
   #art-sidebar {
-    position: fixed;
-    left: 20px;
-    top: 100px;
-    width: 280px;
-    z-index: 1;
-    pointer-events: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    pointer-events: auto;
+  }
+  #art-sidebar:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: transparent;
   }
   .art-sidebar-card {
-    pointer-events: auto;
-    background: rgba(15, 15, 19, 0.95);
-    border: 1px solid rgba(216,194,255,0.25);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
   }
   .art-sidebar-title {
     font-size: 0.9rem;
@@ -656,9 +715,16 @@
     padding: 20px 0;
   }
   .timeline-block {
-    background: linear-gradient(135deg, rgba(255,209,220,0.08), rgba(216,194,255,0.08), rgba(194,255,216,0.08));
-    border: 1px solid rgba(216,194,255,0.18); border-radius: var(--radius);
-    padding: 24px; margin-bottom: 24px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+  .timeline-block:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: transparent;
   }
   .timeline-container {
     position: relative;
@@ -744,9 +810,16 @@
   }
 
   .partners-block {
-    background: linear-gradient(135deg, rgba(255,209,220,0.08), rgba(216,194,255,0.08), rgba(194,255,216,0.08));
-    border: 1px solid rgba(216,194,255,0.18); border-radius: var(--radius);
-    padding: 24px; margin-bottom: 24px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+  .partners-block:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: transparent;
   }
   .partners-grid {
     display: grid;
@@ -798,14 +871,32 @@
 
   
   @media (max-width: 900px) {
+    .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    .bento-item-wide { grid-column: span 2; }
+    .bento-item-full { grid-column: span 2; }
     .directors-grid-all { grid-template-columns: repeat(2, 1fr); }
     .teams-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
     body { padding: 24px 14px; }
-    .tab-header { padding: 6px 8px; gap: 0; }
-    .tab-btn { padding: 10px 12px; font-size: 0.72rem; }
-    .about-block, .directors-block, .rules-block, .team-block, .timeline-block, .partners-block { padding: 18px; }
+    .tab-header {
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 8px;
+      gap: 8px;
+    }
+    .tab-header::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex: 0 0 auto;
+      min-width: 120px;
+      padding: 12px 16px;
+      font-size: 0.75rem;
+    }
+    .bento-grid { grid-template-columns: 1fr; gap: 16px; }
+    .bento-item, .bento-item-wide, .bento-item-full { grid-column: span 1; padding: 18px; }
+    .about-block, .directors-block, .rules-block, .team-block, .timeline-block, .partners-block { padding: 0; }
     .director-card { padding: 12px 14px; }
     .director-card .role-name { font-size: 0.8rem; }
     .team-title { font-size: 0.9rem; }
@@ -823,17 +914,6 @@
     .timeline-dot {
       left: 20px;
       transform: translateX(-50%);
-    }
-    #art-sidebar {
-      position: static;
-      left: 0;
-      top: 0;
-      width: 100%;
-      margin-bottom: 24px;
-      pointer-events: auto;
-    }
-    .art-sidebar-card {
-      padding: 18px;
     }
   }
 </style>
@@ -865,36 +945,47 @@
 
     <main id="tab-content">
       <section class="tab-panel active" id="tab-about" role="tabpanel" aria-labelledby="tabbtn-about">
-        <div class="about-block">
-          <div class="about-title">О проекте</div>
-          <p class="about-lead">BTZProduction — закрытая команда по созданию контента: моменты с игр, TikTok, Reels, Shorts, арты, фанфики и коллабы.</p>
-          <p>Мы выросли из обычного хауса в продакшн-команду. То, что раньше было просто тусовкой друзей в Minecraft, теперь стало проектом с ролями, дисциплиной и общим брендом.</p>
-          <p>Основная тема — Minecraft, но этим мы не ограничиваемся. У нас есть CS2, Roblox, челленджи, коллабы.</p>
-          <p>Снимаемся онлайн: кто-то в кадре, кто-то за кадром, кто-то монтирует, кто-то придумывает.</p>
-          <p class="about-goal">Мы не обещаем миллионы. Мы обещаем движение вперёд, поддержку и контент, который хочется смотреть.</p>
-          <div class="about-links">
-            <a href="https://discord.gg/ufQghhdRVJ" target="_blank" rel="noopener noreferrer">Discord</a>
-            <a href="https://www.tiktok.com/@btzhora" target="_blank" rel="noopener noreferrer">TikTok</a>
-            <a href="https://t.me/BTZhoraTG" target="_blank" rel="noopener noreferrer">Telegram</a>
-            <a href="https://www.youtube.com/@btzhora" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <div class="bento-grid">
+          <div class="bento-item bento-item-wide about-block">
+            <div class="about-title">О проекте</div>
+            <p class="about-lead">BTZProduction — закрытая команда по созданию контента: моменты с игр, TikTok, Reels, Shorts, арты, фанфики и коллабы.</p>
+            <p>Мы выросли из обычного хауса в продакшн-команду. То, что раньше было просто тусовкой друзей в Minecraft, теперь стало проектом с ролями, дисциплиной и общим брендом.</p>
+            <p>Основная тема — Minecraft, но этим мы не ограничиваемся. У нас есть CS2, Roblox, челленджи, коллабы.</p>
+            <p>Снимаемся онлайн: кто-то в кадре, кто-то за кадром, кто-то монтирует, кто-то придумывает.</p>
+            <p class="about-goal">Мы не обещаем миллионы. Мы обещаем движение вперёд, поддержку и контент, который хочется смотреть.</p>
+            <div class="about-links">
+              <a href="https://discord.gg/ufQghhdRVJ" target="_blank" rel="noopener noreferrer">Discord</a>
+              <a href="https://www.tiktok.com/@btzhora" target="_blank" rel="noopener noreferrer">TikTok</a>
+              <a href="https://t.me/BTZhoraTG" target="_blank" rel="noopener noreferrer">Telegram</a>
+              <a href="https://www.youtube.com/@btzhora" target="_blank" rel="noopener noreferrer">YouTube</a>
+            </div>
+            <div class="about-cta-row">
+              <button type="button" class="about-cta" data-goto-tab="join">Как вступить?</button>
+            </div>
           </div>
-          <div class="about-cta-row">
-            <button type="button" class="about-cta" data-goto-tab="join">Как вступить?</button>
+
+          <div class="bento-item" id="art-sidebar">
+            <div class="art-sidebar-card">
+              <div class="art-sidebar-title">Рандомный арт от команды</div>
+              <div class="art-container" id="art-container">
+                <div class="art-loading">Загрузка...</div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="timeline-block">
-          <div class="about-title">История проекта</div>
-          <div class="timeline-container" id="timeline-container"></div>
-        </div>
+          <div class="bento-item bento-item-full timeline-block">
+            <div class="about-title">История проекта</div>
+            <div class="timeline-container" id="timeline-container"></div>
+          </div>
 
-        <div class="partners-block">
-          <div class="about-title">Наши партнеры</div>
-          <div class="partners-grid">
-            <a href="https://site.relaywatch.duckdns.org/" target="_blank" rel="noopener noreferrer" class="partner-card">
-              <div class="partner-name">Relay Watch</div>
-              <div class="partner-btn">Перейти на сайт →</div>
-            </a>
+          <div class="bento-item partners-block">
+            <div class="about-title">Наши партнеры</div>
+            <div class="partners-grid">
+              <a href="https://site.relaywatch.duckdns.org/" target="_blank" rel="noopener noreferrer" class="partner-card">
+                <div class="partner-name">Relay Watch</div>
+                <div class="partner-btn">Перейти на сайт →</div>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -1018,15 +1109,6 @@
         </div>
       </section>
     </main>
-
-    <div id="art-sidebar">
-      <div class="art-sidebar-card">
-        <div class="art-sidebar-title">Рандомный арт от команды</div>
-        <div class="art-container" id="art-container">
-          <div class="art-loading">Загрузка...</div>
-        </div>
-      </div>
-    </div>
 
     <footer>© 2026 BTZProduction</footer>
   </div>
