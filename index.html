@@ -94,6 +94,39 @@
     flex: 1;
     min-width: 200px;
   }
+  .header-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .partner-btn-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: #0f0f13;
+    background: linear-gradient(135deg, var(--mint), var(--lilac));
+    transition: transform .15s ease, box-shadow .15s ease;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(194, 255, 216, 0.2);
+  }
+  .partner-btn-header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(216, 194, 255, 0.4);
+  }
+  .partner-btn-header:active {
+    transform: translateY(0);
+  }
+  .partner-btn-header:focus-visible {
+    outline: 2px solid var(--mint);
+    outline-offset: 2px;
+  }
   .support-btn {
     display: inline-flex;
     align-items: center;
@@ -130,7 +163,11 @@
     .header-left {
       text-align: center;
     }
-    .support-btn {
+    .header-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    .support-btn, .partner-btn-header {
       width: 100%;
       justify-content: center;
     }
@@ -929,7 +966,10 @@
         <div class="subtitle">Personal List</div>
         <div class="date" id="date-el"></div>
       </div>
-      <a href="#" class="support-btn">💖 Поддержать проект</a>
+      <div class="header-actions">
+        <a href="https://site.relaywatch.duckdns.org/" target="_blank" rel="noopener noreferrer" class="partner-btn-header">🤝 Relay Watch</a>
+        <a href="#" class="support-btn">💖 Поддержать проект</a>
+      </div>
     </header>
 
     <noscript>
@@ -978,15 +1018,6 @@
             <div class="timeline-container" id="timeline-container"></div>
           </div>
 
-          <div class="bento-item partners-block">
-            <div class="about-title">Наши партнеры</div>
-            <div class="partners-grid">
-              <a href="https://site.relaywatch.duckdns.org/" target="_blank" rel="noopener noreferrer" class="partner-card">
-                <div class="partner-name">Relay Watch</div>
-                <div class="partner-btn">Перейти на сайт →</div>
-              </a>
-            </div>
-          </div>
         </div>
       </section>
 
