@@ -2513,7 +2513,7 @@
     if (!chatInput || !lobbyWs || lobbyWs.readyState !== WebSocket.OPEN) return;
     var text = chatInput.value.trim();
     if (!text) return;
-    lobbyWs.send(JSON.stringify({ type: 'chat_message', text: text }));
+    lobbyWs.send(JSON.stringify({ type: 'chat_message', text: text, discord_id: lobbyUser.id }));
     chatInput.value = '';
   }
 
@@ -2543,7 +2543,7 @@
     playerX = Math.max(20, Math.min(canvas.width - 20, playerX));
     playerY = Math.max(20, Math.min(canvas.height - 20, playerY));
     if (moved && lobbyWs && lobbyWs.readyState === WebSocket.OPEN) {
-      lobbyWs.send(JSON.stringify({ type: 'move_lobby', x: playerX, y: playerY }));
+      lobbyWs.send(JSON.stringify({ type: 'move_lobby', x: playerX, y: playerY, discord_id: lobbyUser.id }));
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = 'rgba(216, 194, 255, 0.1)';
