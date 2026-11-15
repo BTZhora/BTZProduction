@@ -2485,7 +2485,7 @@
     lobbyWs.onopen = function() {
       var payload = { type: 'join_lobby' };
       if (lobbyUser) {
-        payload.discord_id = lobbyUser.id;
+        payload.discord_id = String(lobbyUser.id);
         payload.username = lobbyUser.username;
       }
       lobbyWs.send(JSON.stringify(payload));
@@ -2494,6 +2494,11 @@
       try {
         var data = JSON.parse(event.data);
         if (data.type === 'lobby_update') { lobbyPlayers = data.players || {}; }
+        else if (data.type === 'auth_error') {
+          alert('Ошибка входа: ' + data.message);
+          localStorage.removeItem('lobby_user');
+          window.location.reload();
+        }
         else if (data.type === 'new_chat_message') {
           addChatMessage(data.username, data.text);
           if (lobbyPlayers[data.playerId]) {
@@ -2548,15 +2553,28 @@
     ctx.lineWidth = 1;
     for (var x = 0; x <= canvas.width; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); }
     for (var y = 0; y <= canvas.height; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
+    if (lobbyUser) {
+      ctx.beginPath();
+      ctx.arc(playerX, playerY, 20, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffd1dc';
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(lobbyUser.username, playerX, playerY - 28);
+    }
     for (var id in lobbyPlayers) {
       var p = lobbyPlayers[id];
-      var isMe = (lobbyUser && p.username === lobbyUser.username);
+      if (lobbyUser && p.username === lobbyUser.username) continue;
       ctx.beginPath();
       ctx.arc(p.x, p.y, 20, 0, Math.PI * 2);
       ctx.fillStyle = p.color || '#d8c2ff';
       ctx.fill();
-      ctx.strokeStyle = isMe ? '#ffffff' : 'rgba(255,255,255,0.5)';
-      ctx.lineWidth = isMe ? 3 : 1;
+      ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+      ctx.lineWidth = 1;
       ctx.stroke();
       ctx.fillStyle = '#ffffff';
       ctx.font = '12px sans-serif';
