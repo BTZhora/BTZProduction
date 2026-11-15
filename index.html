@@ -2453,7 +2453,16 @@
     }
     if (discordLoginBtn) {
       discordLoginBtn.addEventListener('click', function() {
-        window.location.href = 'https://btzproduction-backend.onrender.com/auth/discord/login';
+        fetch('https://btzproduction-backend.onrender.com/auth/discord/login')
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            if (data.auth_url) {
+              window.location.href = data.auth_url;
+            } else {
+              console.error('No auth_url in response', data);
+            }
+          })
+          .catch(function(err) { console.error('Auth fetch error', err); });
       });
     }
     if (chatSendBtn && chatInput) {
