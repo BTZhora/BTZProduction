@@ -982,6 +982,7 @@
       <button class="tab-btn" type="button" data-tab="members" id="tabbtn-members" role="tab" aria-selected="false" aria-controls="tab-members" tabindex="-1">Состав</button>
       <button class="tab-btn" type="button" data-tab="rules" id="tabbtn-rules" role="tab" aria-selected="false" aria-controls="tab-rules" tabindex="-1">Правила</button>
       <button class="tab-btn" type="button" data-tab="join" id="tabbtn-join" role="tab" aria-selected="false" aria-controls="tab-join" tabindex="-1">Как вступить</button>
+      <button class="tab-btn" type="button" data-tab="lobby" id="tabbtn-lobby" role="tab" aria-selected="false" aria-controls="tab-lobby" tabindex="-1">🌐 Лобби</button>
     </nav>
 
     <main id="tab-content">
@@ -1138,6 +1139,84 @@
           </ol>
           <p>Не подошли с первого раза? Это не приговор — можно попробовать позже, прокачав навык. Мы ценим тех, кто возвращается подготовленным.</p>
           <a class="join-cta" href="https://t.me/BTZhoraBot" target="_blank" rel="noopener noreferrer">Написать боту @BTZhoraBot</a>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-lobby" role="tabpanel" aria-labelledby="tabbtn-lobby">
+        <div class="bento-grid">
+          <div class="bento-item bento-item-full" style="padding: 32px; text-align: center;">
+            <div id="lobby-login-screen">
+              <h2 style="font-size: 1.5rem; margin-bottom: 16px; color: var(--text);">Вход в лобби</h2>
+              <button id="discord-login-btn" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 14px 28px;
+                border-radius: 12px;
+                border: none;
+                background: #5865F2;
+                color: #ffffff;
+                font-size: 1rem;
+                font-weight: 700;
+                cursor: pointer;
+                transition: transform 0.15s ease, box-shadow 0.15s ease;
+              " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 18px rgba(88, 101, 242, 0.4)'"
+                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                Войти через Discord
+              </button>
+            </div>
+
+            <div id="lobby-game-screen" style="display: none;">
+              <div style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+                <canvas id="lobby-canvas" width="800" height="500" style="
+                  width: 100%;
+                  max-width: 800px;
+                  height: auto;
+                  aspect-ratio: 8 / 5;
+                  background: rgba(15, 15, 19, 0.8);
+                  border: 1px solid rgba(216, 194, 255, 0.3);
+                  border-radius: 16px;
+                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+                "></canvas>
+
+                <div style="width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 12px;">
+                  <div id="lobby-chat-feed" style="
+                    height: 150px;
+                    overflow-y: auto;
+                    background: rgba(15, 15, 19, 0.6);
+                    border: 1px solid var(--line);
+                    border-radius: 12px;
+                    padding: 12px;
+                    font-size: 0.85rem;
+                    color: var(--text-dim);
+                  "></div>
+                  <div style="display: flex; gap: 8px;">
+                    <input type="text" id="lobby-chat-input" placeholder="Введите сообщение..." style="
+                      flex: 1;
+                      padding: 12px 16px;
+                      background: rgba(15, 15, 19, 0.6);
+                      border: 1px solid var(--line-2);
+                      border-radius: 10px;
+                      color: var(--text);
+                      font-size: 0.9rem;
+                      outline: none;
+                    " />
+                    <button id="lobby-chat-send" style="
+                      padding: 12px 24px;
+                      border-radius: 10px;
+                      border: none;
+                      background: linear-gradient(135deg, var(--pink), var(--lilac));
+                      color: #0f0f13;
+                      font-weight: 700;
+                      cursor: pointer;
+                      transition: transform 0.15s ease;
+                    ">Отправить</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -1315,7 +1394,7 @@
   var tabPanels = Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
 
   var TAB_STORAGE_KEY = 'btz_active_tab';
-  var VALID_TABS = ['about', 'members', 'rules', 'join'];
+  var VALID_TABS = ['about', 'members', 'rules', 'join', 'lobby'];
 
   var currentData = null;
   var lastJsonString = '';
@@ -2329,6 +2408,167 @@
 
     rafId = requestAnimationFrame(updatePosition);
   })();
+
+  // --- LOBBY LOGIC ---
+  var lobbyWs = null;
+  var lobbyUser = null;
+  var lobbyPlayers = {};
+  var playerX = 400;
+  var playerY = 250;
+  var keysPressed = {};
+
+  var canvas = document.getElementById('lobby-canvas');
+  var ctx = canvas ? canvas.getContext('2d') : null;
+  var chatFeed = document.getElementById('lobby-chat-feed');
+  var chatInput = document.getElementById('lobby-chat-input');
+  var chatSendBtn = document.getElementById('lobby-chat-send');
+  var loginScreen = document.getElementById('lobby-login-screen');
+  var gameScreen = document.getElementById('lobby-game-screen');
+  var discordLoginBtn = document.getElementById('discord-login-btn');
+
+  function initLobby() {
+    if (!canvas || !ctx) return;
+    var urlParams = new URLSearchParams(window.location.search);
+    var code = urlParams.get('code');
+    var savedUser = localStorage.getItem('lobby_user');
+    if (savedUser) {
+      try {
+        lobbyUser = JSON.parse(savedUser);
+        showLobbyGame();
+        connectLobbyWs();
+      } catch(e) { localStorage.removeItem('lobby_user'); }
+    } else if (code) {
+      fetch('https://btzproduction-backend.onrender.com/auth/discord/callback?code=' + encodeURIComponent(code))
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data.id && data.username) {
+            lobbyUser = data;
+            localStorage.setItem('lobby_user', JSON.stringify(lobbyUser));
+            window.history.replaceState({}, document.title, window.location.pathname);
+            showLobbyGame();
+            connectLobbyWs();
+          }
+        })
+        .catch(function(err) { console.error('Auth error', err); });
+    }
+    if (discordLoginBtn) {
+      discordLoginBtn.addEventListener('click', function() {
+        window.location.href = 'https://btzproduction-backend.onrender.com/auth/discord/login';
+      });
+    }
+    if (chatSendBtn && chatInput) {
+      chatSendBtn.addEventListener('click', sendChatMessage);
+      chatInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendChatMessage(); });
+    }
+    window.addEventListener('keydown', function(e) { if (gameScreen && gameScreen.style.display !== 'none') keysPressed[e.key.toLowerCase()] = true; });
+    window.addEventListener('keyup', function(e) { keysPressed[e.key.toLowerCase()] = false; });
+    requestAnimationFrame(gameLoop);
+  }
+
+  function showLobbyGame() {
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (gameScreen) gameScreen.style.display = 'block';
+  }
+
+  function connectLobbyWs() {
+    if (lobbyWs && (lobbyWs.readyState === WebSocket.OPEN || lobbyWs.readyState === WebSocket.CONNECTING)) return;
+    try { lobbyWs = new WebSocket('wss://btzproduction-backend.onrender.com/ws'); } catch(e) { return; }
+    lobbyWs.onopen = function() { lobbyWs.send(JSON.stringify({ type: 'join_lobby', user: lobbyUser })); };
+    lobbyWs.onmessage = function(event) {
+      try {
+        var data = JSON.parse(event.data);
+        if (data.type === 'lobby_update') { lobbyPlayers = data.players || {}; }
+        else if (data.type === 'new_chat_message') {
+          addChatMessage(data.username, data.text);
+          if (lobbyPlayers[data.playerId]) {
+            lobbyPlayers[data.playerId].bubble = data.text;
+            clearTimeout(lobbyPlayers[data.playerId].bubbleTimeout);
+            lobbyPlayers[data.playerId].bubbleTimeout = setTimeout(function() { if (lobbyPlayers[data.playerId]) lobbyPlayers[data.playerId].bubble = null; }, 5000);
+          }
+        }
+      } catch(e) {}
+    };
+    lobbyWs.onclose = function() { lobbyWs = null; setTimeout(connectLobbyWs, 3000); };
+  }
+
+  function sendChatMessage() {
+    if (!chatInput || !lobbyWs || lobbyWs.readyState !== WebSocket.OPEN) return;
+    var text = chatInput.value.trim();
+    if (!text) return;
+    lobbyWs.send(JSON.stringify({ type: 'chat_message', text: text }));
+    chatInput.value = '';
+  }
+
+  function addChatMessage(username, text) {
+    if (!chatFeed) return;
+    var msg = document.createElement('div');
+    msg.style.marginBottom = '4px';
+    msg.innerHTML = '<strong style="color: var(--lilac);">' + escapeHtml(username) + ':</strong> ' + escapeHtml(text);
+    chatFeed.appendChild(msg);
+    chatFeed.scrollTop = chatFeed.scrollHeight;
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function gameLoop() {
+    if (!ctx || !canvas) { requestAnimationFrame(gameLoop); return; }
+    var moved = false;
+    var speed = 3;
+    if (keysPressed['w'] || keysPressed['arrowup']) { playerY -= speed; moved = true; }
+    if (keysPressed['s'] || keysPressed['arrowdown']) { playerY += speed; moved = true; }
+    if (keysPressed['a'] || keysPressed['arrowleft']) { playerX -= speed; moved = true; }
+    if (keysPressed['d'] || keysPressed['arrowright']) { playerX += speed; moved = true; }
+    playerX = Math.max(20, Math.min(canvas.width - 20, playerX));
+    playerY = Math.max(20, Math.min(canvas.height - 20, playerY));
+    if (moved && lobbyWs && lobbyWs.readyState === WebSocket.OPEN) {
+      lobbyWs.send(JSON.stringify({ type: 'move_lobby', x: playerX, y: playerY }));
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = 'rgba(216, 194, 255, 0.1)';
+    ctx.lineWidth = 1;
+    for (var x = 0; x <= canvas.width; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); }
+    for (var y = 0; y <= canvas.height; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
+    for (var id in lobbyPlayers) {
+      var p = lobbyPlayers[id];
+      var isMe = (lobbyUser && p.username === lobbyUser.username);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 20, 0, Math.PI * 2);
+      ctx.fillStyle = p.color || '#d8c2ff';
+      ctx.fill();
+      ctx.strokeStyle = isMe ? '#ffffff' : 'rgba(255,255,255,0.5)';
+      ctx.lineWidth = isMe ? 3 : 1;
+      ctx.stroke();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(p.username, p.x, p.y - 28);
+      if (p.bubble) {
+        ctx.font = '11px sans-serif';
+        var metrics = ctx.measureText(p.bubble);
+        var bw = metrics.width + 16;
+        var bh = 24;
+        var bx = p.x - bw / 2;
+        var by = p.y - 60;
+        ctx.fillStyle = 'rgba(20, 20, 26, 0.9)';
+        ctx.strokeStyle = 'rgba(216, 194, 255, 0.5)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        if (ctx.roundRect) { ctx.roundRect(bx, by, bw, bh, 6); } else { ctx.rect(bx, by, bw, bh); }
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#e8e8e8';
+        ctx.textAlign = 'center';
+        ctx.fillText(p.bubble, p.x, by + 16);
+      }
+    }
+    requestAnimationFrame(gameLoop);
+  }
+  initLobby();
+
 })();
 </script>
 </body>
