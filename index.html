@@ -2442,10 +2442,8 @@
         .then(function(res) { return res.json(); })
         .then(function(data) {
           if (data.id && data.username) {
-            localStorage.setItem('discord_id', data.id);
-            localStorage.setItem('discord_username', data.username);
-            if (data.avatar) localStorage.setItem('discord_avatar', data.avatar);
-            lobbyUser = { id: data.id, username: data.username, avatar: data.avatar };
+            localStorage.setItem('lobby_user', JSON.stringify({ id: data.id, username: data.username }));
+            lobbyUser = { id: data.id, username: data.username };
             window.history.replaceState({}, document.title, window.location.pathname);
             showLobbyGame();
             connectLobbyWs();
